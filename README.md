@@ -1,6 +1,6 @@
 Simple html + css + javascript one file webapp for calculating Destiny Matrix charts.
 
-Live version here: https://glavans.com/destiny-matrix-calc.html
+Link: [Destiny Matrix Calculator - Live Preview](https://glavans.com/destiny-matrix-calc.html)
 
 It encodes the date in the URL so it can be linked or shared.
 
