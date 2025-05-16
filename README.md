@@ -12,4 +12,4 @@ This was all coded with AI Studio's Gemini 2.5 and functionality was later added
 
 Feel free to request additional functionality.
 
-![Destiny Matrix Calculator](https://imgur.com/Q8IPUOM)
+![Destiny Matrix Calculator](https://i.imgur.com/Q8IPUOM.png)
