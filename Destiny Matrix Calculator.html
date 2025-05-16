@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+    <!-- Destiny Matrix Calculator - v1.8 *** Made by Alexander Glavan, 2025 - https://glavans.com *** -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destiny Matrix Calculator</title>
+
+    <!-- *** Favicon *** -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕸️</text></svg>">
+    <!-- *************** -->
+
+    <!-- START OF EMBEDDED CSS -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Wrapper for consistent width and centering */
+        .header-controls-wrapper {
+            width: 95%;
+            max-width: 750px;
+            margin-bottom: 30px;
+        }
+        @media (min-width: 769px) {
+             .header-controls-wrapper {
+                  max-width: 1100px;
+             }
+        }
+
+        h1 {
+            color: #f0f0f0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .controls {
+            padding: 15px 25px;
+            background-color: #2a2a3e;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .controls label { margin-right: 0; color: #c0c0c0; font-size: 0.9em; }
+        .controls input[type="number"] { width: 65px; padding: 8px 10px; background-color: #1a1a2e; border: 1px solid #4a4a5e; border-radius: 4px; color: #e0e0e0; font-size: 14px; text-align: center; margin-right: 0; }
+        .controls input[type="number"]::-webkit-inner-spin-button, .controls input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        .controls input[type="number"] { -moz-appearance: textfield; }
+        .controls button {
+    padding: 10px 20px;
+    background: linear-gradient(145deg, #7a288a, #4e277e);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(122, 40, 138, 0.18);
+    margin-left: auto;
+}
+.controls button:hover {
+    background: linear-gradient(145deg, #8c36a9, #5a2a6d);
+    box-shadow: 0 4px 10px rgba(122, 40, 138, 0.26);
+    transform: translateY(-1px);
+}
+.controls button:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 5px rgba(122, 40, 138, 0.18);
+} 
+
+        /* Main content area layout */
+        .main-content {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            width: 95%;
+            max-width: 1100px;
+            margin-top: 0;
+            margin-left: auto;
+            margin-right: auto;
+            flex-wrap: wrap;
+        }
+
+        /* Container for the SVG */
+        .matrix-container {
+            flex: 2;
+            flex-basis: clamp(400px, 70%, 750px);
+            min-width: 350px;
+            max-width: 810px;
+            background-color: #0d0d1a;
+            border-radius: 10px;
+            padding: 40px 8px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #loadingMessage { color: #666; font-size: 1.2em; }
+        #matrix { display: block; width: 100%; max-width: 100%; height: auto; overflow: visible; }
+
+        /* Sidebar container */
+        .sidebar-container {
+            flex: 1;
+            flex-basis: clamp(220px, 25%, 250px);
+            min-width: 200px;
+            max-width: 220px;
+            background-color: #2a2a3e;
+            border-radius: 8px;
+            padding: 35px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .sidebar-section { display: flex; flex-direction: column; gap: 10px; }
+        .sidebar-item { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .sidebar-title { font-size: 1.1em; font-weight: bold; color: #e0e0e0; margin-bottom: 5px; text-align: center; }
+        .sidebar-label { font-size: 0.95em; color: #b0b0c0; flex-grow: 1; text-align: left; }
+.sidebar-label.center { text-align: center; }
+        .sidebar-value-box { background-color: #1a1a2e; color: #f0f0f0; border: 1px solid #4a4a5e; border-radius: 4px; padding: 6px 7px; font-weight: bold; font-size: 1.1em; min-width: 45px; text-align: center; margin-left: 10px; cursor: default; /* Indicate it's hoverable */ }
+        .sidebar-value-box.large { font-size: 1.8em; padding: 7px 20px; background-color: #eab308; color: #1a1a2e; border-color: #eab308; margin-bottom: 5px; margin-left: 0; }
+
+        .purpose-group, .social-group { gap: 12px; }
+        .purpose-item, .social-item { margin-bottom: -5px; }
+
+        .sidebar-sublabel { font-size: 0.85em; color: #808090; text-align: center; }
+        hr.sidebar-divider { border: none; border-top: 1px solid #4a4a5e; margin: 10px 0; }
+
+
+        /* --- SVG Specific Styling --- */
+        /* Base text styles (REMOVED pointer-events: none;) */
+        #matrix text {
+             font-family: 'Arial', 'Helvetica', sans-serif;
+             text-anchor: middle;
+             dominant-baseline: central;
+             fill: #f0f0f0;
+             /* pointer-events: none; <-- Removed */
+             cursor: default; /* Optional: Indicate hover */
+        }
+        /* Explicitly allow pointer events on the value points we target */
+        #matrix .matrix-value-point {
+            pointer-events: auto !important; /* Ensure these are clickable */
+            fill: #000000; /* Keep main numbers BLACK */
+            font-weight: bold;
+        }
+
+        /* Frame styles */
+        #matrix .cls-3, #matrix .cls-4, #matrix .cls-18 { stroke: #cccccc; stroke-width: 0.75px; fill: none; }
+        #matrix .cls-5, #matrix .cls-7 { stroke: #cccccc; stroke-width: 1px; }
+        #matrix .cls-6, #matrix .cls-8 { fill: currentColor; }
+        #matrix line.cls-3[x1="333.7"][y1="27.76"] { stroke: #3b82f6; stroke-width: 1px; }
+        #matrix line.cls-3[x1="65.24"][y1="296.22"] { stroke: #f97316; stroke-width: 1px; }
+
+        /* Age/Misc Text (Make sure these DON'T interfere with hover on numbers) */
+        /* These generally should NOT have the matrix-value-point class */
+        #matrix .cls-28, #matrix .cls-29, #matrix .cls-43, #matrix .cls-61,
+        #matrix .cls-44, #matrix .cls-53, #matrix .cls-56 {
+           pointer-events: none; /* Make sure misc text doesn't block hover */
+        }
+        #matrix .cls-28 { font-size: 13px; fill: #a0a0a0; text-anchor: middle; dominant-baseline: middle; }
+        #matrix .cls-29 { font-size: 10px; fill: #a0a0a0; text-anchor: middle; dominant-baseline: auto; }
+        #matrix .cls-43 { font-size: 8px; }
+        #matrix .cls-61 { font-size: 8px; fill: #707070; text-anchor: start; dominant-baseline: auto; }
+        #matrix .cls-44 { font-size: 11px; font-style: italic; fill: #c0c0c0; text-anchor: middle; dominant-baseline: auto; }
+        #matrix .cls-53 { fill: #ef4444; }
+        #matrix .cls-56 { font-size: 28px; font-weight: bold; fill: #eab308; text-anchor: middle; dominant-baseline: central; }
+
+
+        /* Circle Colors & Text Contrast */
+        #matrix circle { stroke: rgba(255, 255, 255, 0.1); stroke-width: 0.5px; fill: #e5e7eb; pointer-events: none; /* Circles shouldn't block hover on text */ }
+        #matrix .cls-33 { font-size: 11px; fill: #ffffff !important; font-weight: normal; } /* Side points white */
+        #matrix .cls-10 { fill: #c061ff; } #matrix .cls-19 { fill: #772222; } #matrix .cls-25 { fill: #eab308; }
+        #matrix .cls-24 { fill: #e5e7eb; } #matrix .cls-22 { fill: #f97316; } #matrix .cls-21 { fill: #e5e7eb; }
+        #matrix .cls-15 { fill: #2fcef2; } #matrix .cls-13 { fill: #3042c2; } #matrix .cls-23 { fill: #e5e7eb; }
+        #matrix .cls-26 { fill: #13df9b; }
+
+        /* Font size overrides */
+        #matrix .cls-54, #matrix .cls-55 { font-size: 22px; }
+        #matrix .cls-59, #matrix .cls-60 { font-size: 18px; }
+        #matrix .cls-57, #matrix .cls-58 { font-size: 16px; }
+        #matrix #epoint { font-size: 24px; }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-controls-wrapper { width: 95%; max-width: 95%; }
+            .main-content { flex-direction: column; align-items: center; width: 95%; }
+            .matrix-container, .sidebar-container { width: 100%; max-width: 500px; flex: none; flex-basis: auto; }
+            .sidebar-container { max-width: 400px; }
+            .controls { justify-content: center; margin-left: auto; margin-right: auto; }
+            .controls button { margin-left: 0; }
+        }
+
+        /* --- NEW: Custom Tooltip CSS --- */
+        #custom-tooltip {
+            position: absolute; /* Crucial for positioning near mouse */
+            display: none; /* Hidden by default */
+            background-color: rgba(26, 26, 46, 0.95); /* Match body bg, slightly transparent */
+            color: #e0e0e0; /* Match body text */
+            border: 1px solid #4a4a5e; /* Match controls border */
+            border-radius: 5px; /* Match button radius */
+            padding: 6px 10px; /* Comfortable padding */
+            font-size: 0.95em; /* Slightly smaller than body text */
+            z-index: 10000; /* Ensure it's on top of everything */
+            pointer-events: none; /* Tooltip itself should not be interactive */
+            white-space: nowrap; /* Keep name on one line */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Subtle shadow */
+        }
+    .today-link {
+    margin-left: 10px;
+    color: #F0F0F0 !important;
+    font-size: 0.9em;
+    text-decoration: none;
+    border-bottom: 1px dotted #F0F0F0;
+    transition: color 0.2s;
+    cursor: pointer;
+    font-weight: 500;
+}
+.controls a {
+    color: #F0F0F0 !important;
+    border-bottom: 1px dotted #F0F0F0;
+}
+#calculateBtn, .controls button {
+    background-color: #1A1A2E;
+    color: #fff;
+    border: 1px solid #1A1A2E;
+    transition: background 0.2s, color 0.2s;
+}
+#calculateBtn:hover, .controls button:hover {
+    background-color: #222245;
+    color: #fff;
+}
+.today-link:hover, .today-link:focus {
+    color: #8c36a9;
+    border-bottom: 1px solid #8c36a9;
+    text-decoration: underline;
+}
+
+</style>
+    <!-- END OF EMBEDDED CSS -->
+</head>
+<body>
+    <!-- Wrap H1 and Controls for consistent width -->
+    <div class="header-controls-wrapper">
+        <!-- ... (H1 and Controls HTML remain exactly the same) ... -->
+         <h1>Destiny Matrix Calculator</h1>
+        <div class="controls">
+            <a href="#" id="yesterdayLink" class="today-link" style="margin-right: 12px; align-self: center;"><<</a>
+
+            <label for="day">day:</label>
+            <input type="number" id="day" name="day" min="1" max="31" placeholder="DD">
+
+            <label for="month">month:</label>
+            <input type="number" id="month" name="month" min="1" max="12" placeholder="MM">
+
+            <label for="year">year:</label>
+            <input type="number" id="year" name="year" min="1" max="9999" placeholder="YYYY">
+
+            <a href="#" id="tomorrowLink" class="today-link" style="margin-left: 12px; align-self: center;">>></a>
+            <span style="flex:1 1 20px;"></span>
+            <a href="#" id="todayLink" class="today-link" style="margin: 0 18px 0 18px; align-self: center;">reset date</a>
+            <button id="calculateBtn">calculate</button>
+        </div>
+    </div>
+
+    <!-- Main container for Matrix and Sidebar -->
+    <div class="main-content">
+            <!-- Matrix Container -->
+            <div id="matrixContainer" class="matrix-container">
+                <!-- ****** START OF EMBEDDED SVG ****** -->
+                <svg viewBox="0 0 680 600" id="matrix">
+                   <!-- ... (Entire SVG code remains exactly the same) ... -->
+                    <g id="matrix-frame">
+                        <rect class="cls-3" x="163.63" y="126.14" width="340.16" height="340.16"></rect>
+                        <rect class="cls-3" x="227.87" y="127.54" width="340.16" height="340.16" transform="translate(-158.13 367.16) rotate(-45)"></rect>
+                        <polygon class="cls-4" points="333.7 7.76 537.64 92.28 622.17 296.22 537.64 501.16 333.7 584.68 129.76 500.16 45.24 296.22 129.76 92.28 333.7 7.76"></polygon>
+                        <line class="cls-3" x1="333.7" y1="27.76" x2="333.7" y2="564.68"></line>
+                        <line class="cls-3" x1="65.24" y1="296.22" x2="602.17" y2="296.22"></line>
+                        <g>
+                        <line class="cls-5" x1="442" y1="405" x2="226" y2="189"></line>
+                        <polygon class="cls-6" points="441 402 439 404 442 405 441 402"></polygon>
+                        <polygon class="cls-6" points="226 189 229 190 227 192 226 189"></polygon>
+                        </g>
+                        <g>
+                        <line class="cls-7" x1="442" y1="189" x2="226" y2="405"></line>
+                        <polygon class="cls-8" points="442 189 439 190 441 192 442 189"></polygon>
+                        <polygon class="cls-8" points="226 405 227 402 229 404 226 405"></polygon>
+                        </g>
+                        <line class="cls-18" x1="502" y1="297" x2="335" y2="465"></line>
+                        <g transform="translate(100, 100)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 27 27">
+                            <path class="cls-53" d="M437.54,366.8c-6.26,0-7.12,6-7.28,6s-1.42-6-7.24-6c-7,0-8.91,5.9-8.51,9.45.71,6.14,15.74,18.54,15.74,18.54s15.06-12.4,15.77-18.54C446.43,372.7,444.55,366.8,437.54,366.8Z" transform="translate(-70 -8)"></path>
+                        </svg>
+                        </g>
+                    </g>
+                    <g id="points-basic">
+                         <!-- Circles and Text Points -->
+                        <circle class="cls-10 big-circle" cx="79.2" cy="297" r="33.5"></circle>
+                        <text class="cls-54 matrix-value-point" id="apoint" transform="translate(79.2 299)"></text>
+                        <circle class="cls-10 big-circle" cx="333.7" cy="42" r="33.5"></circle>
+                        <text class="cls-54 matrix-value-point" id="bpoint" transform="translate(333.7 42)"></text>
+                        <circle class="cls-19 big-circle" cx="587.13" cy="297" r="33.5"></circle>
+                        <text class="cls-54 matrix-value-point" id="cpoint" transform="translate(587.4 299)"></text>
+                        <circle class="cls-19 big-circle" cx="332.7" cy="554" r="33.5"></circle>
+                        <text class="cls-54 matrix-value-point" id="dpoint" transform="translate(332.7 557)"></text>
+                        <circle class="cls-25 big-circle" cx="334" cy="297" r="33.5"></circle>
+                        <text class="cls-55 clss matrix-value-point" id="epoint" transform="translate(334 299)"></text>
+                        <circle class="cls-24 big-circle" cx="151" cy="114.22" r="33.5"></circle>
+                        <text class="cls-55 matrix-value-point" id="fpoint" transform="translate(151 115)"></text>
+                        <circle class="cls-24 big-circle" cx="515.1" cy="114.22" r="33.5"></circle>
+                        <text class="cls-55 matrix-value-point" id="gpoint" transform="translate(515.1 115)"></text>
+                        <circle class="cls-24 big-circle" cx="514.1" cy="479.62" r="33.5"></circle>
+                        <text class="cls-55 matrix-value-point" id="ipoint" transform="translate(514.1 481)"></text>
+                        <circle class="cls-24 big-circle" cx="153" cy="479.62" r="33.5"></circle>
+                        <text class="cls-55 matrix-value-point" id="hpoint" transform="translate(153 481)"></text>
+                        <circle class="cls-22 small-circle" cx="332.59" cy="466" r="21"></circle>
+                        <text class="cls-57 matrix-value-point" id="jpoint" transform="translate(332.69 466)"></text>
+                        <circle class="cls-22 small-circle" cx="500" cy="297" r="21"></circle>
+                        <text class="cls-57 matrix-value-point" id="npoint" transform="translate(500 299)"></text>
+                        <circle class="cls-21 small-circle" cx="418.18" cy="380.69" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="lpoint" transform="translate(418.18 382)"></text>
+                        <circle class="cls-21 small-circle" cx="375" cy="424" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="kpoint" transform="translate(375 426)"></text>
+                        <circle class="cls-21 small-circle" cx="461" cy="338" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="mpoint" transform="translate(461 338)"></text>
+                        <circle class="cls-15 small-circle" cx="165.61" cy="297" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="spoint" transform="translate(165.61 299)"></text>
+                        <circle class="cls-15 small-circle" cx="333.7" cy="129" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="tpoint" transform="translate(333.7 131)"></text>
+                        <circle class="cls-13 medium-circle" cx="127.11" cy="297" r="24"></circle>
+                        <text class="cls-59 matrix-value-point" id="opoint" transform="translate(127.11 299)"></text>
+                        <circle class="cls-13 medium-circle" cx="333.7" cy="90.62" r="24"></circle>
+                        <text class="cls-59 matrix-value-point" id="ppoint" transform="translate(333.7 92)"></text>
+                        <circle class="cls-23 medium-circle" cx="333" cy="505" r="24"></circle>
+                        <text class="cls-60 matrix-value-point" id="rpoint" transform="translate(333 505)"></text>
+                        <circle class="cls-23 medium-circle" cx="538.5" cy="297" r="24"></circle>
+                        <text class="cls-60 matrix-value-point" id="qpoint" transform="translate(538.5 299)"></text>
+                        <circle class="cls-26 small-circle" cx="245.26" cy="297" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="wpoint" transform="translate(245.26 299)"></text>
+                        <circle class="cls-26 small-circle" cx="333.7" cy="203" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="xpoint" transform="translate(333.7 204)"></text>
+                        <circle class="cls-21 small-circle" cx="212" cy="175.93" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="f2point" transform="translate(212 179)"></text>
+                        <circle class="cls-23 medium-circle" cx="184.71" cy="149.53" r="24"></circle>
+                        <text class="cls-60 matrix-value-point" id="f1point" transform="translate(184.71 151)"></text>
+                        <circle class="cls-21 small-circle" cx="455.4" cy="177.53" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="g2point" transform="translate(455.4 179)"></text>
+                        <circle class="cls-23 medium-circle" cx="480.79" cy="149.13" r="24"></circle>
+                        <text class="cls-60 matrix-value-point" id="g1point" transform="translate(480.79 151)"></text>
+                        <circle class="cls-21 small-circle" cx="454.4" cy="416.91" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="i2point" transform="translate(454.4 416.91)"></text>
+                        <circle class="cls-23 medium-circle" cx="479.79" cy="445.31" r="24"></circle>
+                        <text class="cls-60 matrix-value-point" id="i1point" transform="translate(479.79 447)"></text>
+                        <circle class="cls-21 small-circle" cx="215" cy="419" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="h2point" transform="translate(215 419)"></text>
+                        <circle class="cls-23 medium-circle" cx="188.71" cy="446.7" r="24"></circle>
+                        <text class="cls-60 matrix-value-point" id="h1point" transform="translate(188.71 447)"></text>
+                        <circle class="cls-21 small-circle" cx="420.54" cy="297" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="vpoint" transform="translate(420.54 299)"></text>
+                        <circle class="cls-23 medium-circle" cx="382" cy="297" r="24"></circle>
+                        <text class="cls-60 matrix-value-point" id="upoint" transform="translate(382 299)"></text>
+                    </g>
+                    <g id="points-years">
+                         <!-- All age text elements -->
+                        <text class="cls-28" transform="translate(20 295)">0<tspan x="-10" y="10">years</tspan><tspan x="-4" y="20">old</tspan></text>
+                        <text class="cls-28" transform="translate(100 70)">10<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
+                        <text class="cls-28" transform="translate(330 -22)">20<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
+                        <text class="cls-28" transform="translate(550 70)">30<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
+                        <text class="cls-28" transform="translate(638 295)">40<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
+                        <text class="cls-28" transform="translate(550 515)">50<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
+                        <text class="cls-28" transform="translate(328 610)">60<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
+                        <text class="cls-28" transform="translate(100 515)">70<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
+                        <text class="cls-29" transform="translate(105.49 200.76)">5 y.o.</text>
+                        <text class="cls-29" transform="translate(235.22 63.42)">15 y.o.</text>
+                        <text class="cls-29" transform="translate(424.00 62.50)">25 y.o.</text>
+                        <text class="cls-29" transform="translate(554.55 199.76)">35 y.o.</text>
+                        <text class="cls-29" transform="translate(555.76 400.12)">45 y.o.</text>
+                        <text class="cls-29" transform="translate(415.8 539.38)">55 y.o.</text>
+                        <text class="cls-29" transform="translate(242.6 537.38)">65 y.o.</text>
+                        <text class="cls-29" transform="translate(105.69 402.12)">75 y.o.</text>
+                        <text class="cls-61" transform="translate(71.7 252.94)">1.25</text>
+                        <text class="cls-61" transform="translate(79.14 234.61)">2.50</text>
+                        <text class="cls-61" transform="translate(86.39 216.23)">3.75</text>
+                        <text class="cls-61" transform="translate(102.39 179.23)">6.25</text>
+                        <text class="cls-61" transform="translate(109.39 160.23)">7.50</text>
+                        <text class="cls-61" transform="translate(117.39 143.23)">8.75</text>
+                        <text class="cls-61" transform="translate(176.55 85.51)">11.25</text>
+                        <text class="cls-61" transform="translate(195.09 77.79)">12.50</text>
+                        <text class="cls-61" transform="translate(214.38 70.22)">13.75</text>
+                        <text class="cls-61" transform="translate(250.51 54.83)">16.25</text>
+                        <text class="cls-61" transform="translate(268.88 47.18)">17.50</text>
+                        <text class="cls-61" transform="translate(287.83 39.52)">18.75</text>
+                        <text class="cls-61" transform="translate(360 38.52)">21.25</text>
+                        <text class="cls-61" transform="translate(372.75 47.17)">22.50</text>
+                        <text class="cls-61" transform="translate(397.13 54.83)">23.75</text>
+                        <text class="cls-61" transform="translate(433.01 70.14)">26.25</text>
+                        <text class="cls-61" transform="translate(448.01 77.79)">27.50</text>
+                        <text class="cls-61" transform="translate(469.26 85.51)">28.75</text>
+                        <text class="cls-61" transform="translate(528.75 146.23)">31.25</text>
+                        <text class="cls-61" transform="translate(529.12 163.23)">32.50</text>
+                        <text class="cls-61" transform="translate(543.78 182.23)">33.75</text>
+                        <text class="cls-61" transform="translate(558.77 219.23)">36.25</text>
+                        <text class="cls-61" transform="translate(560.77 237.61)">37.50</text>
+                        <text class="cls-61" transform="translate(573.07 255.94)">38.75</text>
+                        <text class="cls-61" transform="translate(572.49 345.82)">41.25</text>
+                        <text class="cls-61" transform="translate(558.89 363.52)">42.50</text>
+                        <text class="cls-61" transform="translate(557.3 382.28)">43.75</text>
+                        <text class="cls-61" transform="translate(541.66 419.27)">46.25</text>
+                        <text class="cls-61" transform="translate(528.32 437.69)">47.50</text>
+                        <text class="cls-61" transform="translate(526.7 456.08)">48.75</text>
+                        <text class="cls-61" transform="translate(358.55 560.01)">58.75</text>
+                        <text class="cls-61" transform="translate(369.09 552.29)">57.5</text>
+                        <text class="cls-61" transform="translate(387.38 545.68)">56.25</text>
+                        <text class="cls-61" transform="translate(430.51 529.33)">53.75</text>
+                        <text class="cls-61" transform="translate(441.88 522.68)">52.5</text>
+                        <text class="cls-61" transform="translate(463.83 515.02)">51.25</text>
+                        <text class="cls-61" transform="translate(178 514.02)">68.75</text>
+                        <text class="cls-61" transform="translate(196.75 521.67)">67.5</text>
+                        <text class="cls-61" transform="translate(215.13 529.33)">66.25</text>
+                        <text class="cls-61" transform="translate(254.01 545.68)">63.75</text>
+                        <text class="cls-61" transform="translate(271.01 552.29)">62.5</text>
+                        <text class="cls-61" transform="translate(285.26 559.01)">61.25</text>
+                        <text class="cls-61" transform="translate(73.75 343.82)">78.75</text>
+                        <text class="cls-61" transform="translate(81.12 361.52)">77.5</text>
+                        <text class="cls-61" transform="translate(88.78 380.28)">76.25</text>
+                        <text class="cls-61" transform="translate(103.77 417.27)">73.75</text>
+                        <text class="cls-61" transform="translate(111.77 435.69)">72.5</text>
+                        <text class="cls-61" transform="translate(119.07 454.08)">71.25</text>
+
+                        <!-- Side point numbers -->
+                        <text class="cls-33 matrix-value-point" id="af2point" transform="translate(52 246) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="af1point" transform="translate(60 227.5) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="af3point" transform="translate(68 209) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="afpoint" transform="translate(76 190.5) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="af5point" transform="translate(82 172.5) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="af4point" transform="translate(90 154) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="af6point" transform="translate(98 135.5) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="fb2point" transform="translate(169 63) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="fb1point" transform="translate(188 55) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="fb3point" transform="translate(206 47) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="fbpoint" transform="translate(224 39) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="fb5point" transform="translate(243 31) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="fb4point" transform="translate(261 23.5) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="fb6point" transform="translate(280 16) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="bg2point" transform="translate(388 16) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="bg1point" transform="translate(407 24) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="bg3point" transform="translate(426 32) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="bgpoint" transform="translate(444 40) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="bg5point" transform="translate(463 48) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="bg4point" transform="translate(481 55) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="bg6point" transform="translate(500 63) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="gc2point" transform="translate(570 135) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="gc1point" transform="translate(578 153.5) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="gc3point" transform="translate(586 172) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="gcpoint" transform="translate(594 190.5) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="gc5point" transform="translate(602 209) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="gc4point" transform="translate(610 227.5) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="gc6point" transform="translate(618 246) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="ci2point" transform="translate(615 348) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="ci1point" transform="translate(607 367) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="ci3point" transform="translate(599 385.5) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="cipoint" transform="translate(591 404) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="ci5point" transform="translate(583 422.5) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="ci4point" transform="translate(575 441) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="ci6point" transform="translate(567 459.5) rotate(-67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="id2point" transform="translate(496 532) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="id1point" transform="translate(477.5 540) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="id3point" transform="translate(459.5 548) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="idpoint" transform="translate(441 555.5) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="id5point" transform="translate(422.5 563) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="id4point" transform="translate(404 571) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="id6point" transform="translate(385 578.5) rotate(-22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="dh2point" transform="translate(282 578.5) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="dh1point" transform="translate(263.5 571) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="dh3point" transform="translate(244.5 563) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="dhpoint" transform="translate(226 555.5) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="dh5point" transform="translate(207 548) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="dh4point" transform="translate(188.5 540) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="dh6point" transform="translate(170 532) rotate(22.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="ha2point" transform="translate(97 459) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="ha1point" transform="translate(89 441) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="ha3point" transform="translate(81 423) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="hapoint" transform="translate(73 405) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="ha5point" transform="translate(65 386.5) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="ha4point" transform="translate(57 368) rotate(67.5)"></text>
+                        <text class="cls-33 matrix-value-point" id="ha6point" transform="translate(49 349.5) rotate(67.5)"></text>
+                    </g>
+                </svg>
+                <!-- ****** END OF EMBEDDED SVG ****** -->
+            </div>
+
+            <!-- Sidebar for Additional Calculations -->
+            <div id="sidebarContainer" class="sidebar-container">
+                <!-- ... (Entire Sidebar HTML remains exactly the same) ... -->
+                 <!-- Section 1: Spiritual Harmony -->
+                 <div class="sidebar-section main-purpose">
+                    <div class="sidebar-title">Life Purpose</div>
+                    <div class="sidebar-value-box large" id="value-generalpurpose">--</div>
+                    
+                </div>
+
+                <!-- Section 2: Heaven, Earth, Purpose -->
+                <div class="sidebar-section purpose-group">
+                     <div class="sidebar-item">
+                         <span class="sidebar-label">Heaven</span>
+                         <span class="sidebar-value-box" id="value-sky">--</span>
+                     </div>
+                     <div class="sidebar-item">
+                         <span class="sidebar-label">Earth</span>
+                         <span class="sidebar-value-box" id="value-earth">--</span>
+                     </div>
+                     <div class="sidebar-item purpose-item"> <!-- Added class -->
+                        <span class="sidebar-label">Purpose</span>
+                        <span class="sidebar-value-box" id="value-purpose">--</span>
+                    </div>
+                    <div class="sidebar-sublabel purpose-sublabel">Before 40</div> <!-- Moved sublabel -->
+                </div>
+
+                 <!-- Divider -->
+                 <hr class="sidebar-divider">
+
+                <!-- Section 3: Male, Female, Social -->
+                <div class="sidebar-section social-group">
+                     <div class="sidebar-item">
+                         <span class="sidebar-label">Male</span>
+                         <span class="sidebar-value-box" id="value-male">--</span>
+                     </div>
+                     <div class="sidebar-item">
+                         <span class="sidebar-label">Female</span>
+                         <span class="sidebar-value-box" id="value-female">--</span>
+                     </div>
+                     <div class="sidebar-item social-item"> <!-- Added class -->
+                         <span class="sidebar-label">Social</span>
+                        <span class="sidebar-value-box" id="value-social">--</span>
+                    </div>
+                    <div class="sidebar-sublabel social-sublabel">After 40</div> <!-- Moved sublabel -->
+                 </div>
+            </div>
+
+    </div> <!-- End main-content -->
+
+    <!-- NEW: Custom Tooltip HTML Element -->
+    <div id="custom-tooltip"></div>
+
+    <!-- START OF EMBEDDED JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Tarot Card Mapping (Marseille Sequence) ---
+			const tarotCardMap = {
+                1: "The Magician", 2: "The High Priestess", 3: "The Empress",
+                4: "The Emperor", 5: "The Hierophant", 6: "The Lovers",
+                7: "The Chariot", 8: "Justice", 9: "The Hermit",
+                10: "Wheel of Fortune", 11: "Strength", 12: "The Hanged Man",
+                13: "Death", 14: "Temperance", 15: "The Devil",
+                16: "The Tower", 17: "The Star", 18: "The Moon",
+                19: "The Sun", 20: "Judgement", 21: "The World", 22: "The Fool"
+            };
+
+            // --- DOM Element References ---
+            const dayInput = document.getElementById('day');
+            const monthInput = document.getElementById('month');
+            const yearInput = document.getElementById('year');
+			const calculateBtn = document.getElementById('calculateBtn');
+            const matrixContainer = document.getElementById('matrixContainer');
+            const sidebarContainer = document.getElementById('sidebarContainer');
+            const loadingMessage = document.getElementById('loadingMessage');
+            const valueSky = document.getElementById('value-sky');
+            const valueEarth = document.getElementById('value-earth');
+            const valueMale = document.getElementById('value-male');
+            const valueFemale = document.getElementById('value-female');
+            const valuePurpose = document.getElementById('value-purpose');
+            const valueSocial = document.getElementById('value-social');
+            const valueGeneralPurpose = document.getElementById('value-generalpurpose');
+            const customTooltip = document.getElementById('custom-tooltip'); // <-- Reference for custom tooltip
+
+			// --- Auto-fill Today's Date ---
+			const today = new Date();
+			const currentDay = today.getDate();
+			const currentMonth = today.getMonth() + 1;
+			const currentYear = today.getFullYear();
+			if (dayInput) dayInput.value = currentDay;
+			if (monthInput) monthInput.value = currentMonth;
+			if (yearInput) yearInput.value = currentYear;
+
+            let svgElement = null;
+
+            // --- Point IDs Lists --- (Used for calculation/display, not tooltips anymore)
+            const matrixPointIds = [
+                'apoint', 'bpoint', 'cpoint', 'dpoint', 'epoint', 'fpoint', 'gpoint',
+                'hpoint', 'ipoint', 'jpoint', 'kpoint', 'lpoint', 'mpoint', 'npoint',
+                'opoint', 'ppoint', 'qpoint', 'rpoint', 'spoint', 'tpoint', 'upoint',
+                'vpoint', 'wpoint', 'xpoint', 'f1point', 'f2point', 'g1point', 'g2point',
+                'h1point', 'h2point', 'i1point', 'i2point',
+                'afpoint', 'af1point', 'af2point', 'af3point', 'af4point', 'af5point', 'af6point',
+                'fbpoint', 'fb1point', 'fb2point', 'fb3point', 'fb4point', 'fb5point', 'fb6point',
+                'bgpoint', 'bg1point', 'bg2point', 'bg3point', 'bg4point', 'bg5point', 'bg6point',
+                'gcpoint', 'gc1point', 'gc2point', 'gc3point', 'gc4point', 'gc5point', 'gc6point',
+                'cipoint', 'ci1point', 'ci2point', 'ci3point', 'ci4point', 'ci5point', 'ci6point',
+                'idpoint', 'id1point', 'id2point', 'id3point', 'id4point', 'id5point', 'id6point',
+                'dhpoint', 'dh1point', 'dh2point', 'dh3point', 'dh4point', 'dh5point', 'dh6point',
+                'hapoint', 'ha1point', 'ha2point', 'ha3point', 'ha4point', 'ha5point', 'ha6point'
+            ];
+
+            const sidebarValueElements = {
+                sky: valueSky, earth: valueEarth, male: valueMale, female: valueFemale,
+                purpose: valuePurpose, social: valueSocial, generalpurpose: valueGeneralPurpose
+            };
+
+            // --- Calculation Helper Functions --- (Unchanged)
+            function reduceTo22(num) {
+                let n = Math.abs(parseInt(num)); if (isNaN(n)) return NaN;
+                while (n > 22) { n = String(n).split('').reduce((sum, digit) => sum + parseInt(digit), 0); }
+                return n === 0 ? 22 : n;
+            }
+            function sumDigits(num) { const numStr = String(num); return numStr.split('').reduce((sum, digit) => sum + parseInt(digit), 0); }
+            function calculateSidePoints(p1Val, p2Val, prefix, points) {
+                const midVal = reduceTo22(p1Val + p2Val); const q1Val = reduceTo22(p1Val + midVal);
+                const q2Val = reduceTo22(midVal + p2Val); const e1Val = reduceTo22(p1Val + q1Val);
+                const e2Val = reduceTo22(q1Val + midVal); const e3Val = reduceTo22(midVal + q2Val);
+                const e4Val = reduceTo22(q2Val + p2Val); points[`${prefix}point`] = midVal;
+                points[`${prefix}1point`] = q1Val; points[`${prefix}4point`] = q2Val;
+                points[`${prefix}2point`] = e1Val; points[`${prefix}3point`] = e2Val;
+                points[`${prefix}5point`] = e3Val; points[`${prefix}6point`] = e4Val;
+            }
+
+            // --- Main Calculation Function --- (Unchanged)
+            function calculateMatrix(day, month, year) {
+                const points = {};
+                if (!day || !month || !year || isNaN(day) || isNaN(month) || isNaN(year) || year < 1 || day < 1 || day > 31 || month < 1 || month > 12) { throw new Error("Invalid or incomplete date input."); }
+                day = Number(day); month = Number(month); year = Number(year);
+                const yearSum = sumDigits(year); points.apoint = reduceTo22(day); points.bpoint = reduceTo22(month);
+                points.cpoint = reduceTo22(yearSum); points.dpoint = reduceTo22(points.apoint + points.bpoint + points.cpoint);
+                points.epoint = reduceTo22(points.apoint + points.bpoint + points.cpoint + points.dpoint);
+                points.fpoint = reduceTo22(points.apoint + points.bpoint); points.gpoint = reduceTo22(points.bpoint + points.cpoint);
+                points.hpoint = reduceTo22(points.apoint + points.dpoint); points.ipoint = reduceTo22(points.cpoint + points.dpoint);
+                points.jpoint = reduceTo22(points.dpoint + points.epoint); points.npoint = reduceTo22(points.cpoint + points.epoint);
+                points.spoint = reduceTo22(points.epoint + points.apoint); points.tpoint = reduceTo22(points.bpoint + points.epoint);
+                points.lpoint = reduceTo22(points.jpoint + points.npoint); points.kpoint = reduceTo22(points.jpoint + points.lpoint);
+                points.mpoint = reduceTo22(points.lpoint + points.npoint); points.opoint = reduceTo22(points.apoint + points.spoint);
+                points.ppoint = reduceTo22(points.bpoint + points.tpoint); points.qpoint = reduceTo22(points.cpoint + points.npoint);
+                points.rpoint = reduceTo22(points.dpoint + points.jpoint);
+                points.upoint = reduceTo22(points.fpoint + points.gpoint + points.ipoint + points.hpoint);
+                points.vpoint = reduceTo22(points.epoint + points.upoint); points.wpoint = reduceTo22(points.epoint + points.spoint);
+                points.xpoint = reduceTo22(points.epoint + points.tpoint); points.f2point = reduceTo22(points.upoint + points.fpoint);
+                points.f1point = reduceTo22(points.fpoint + points.f2point); points.g2point = reduceTo22(points.upoint + points.gpoint);
+                points.g1point = reduceTo22(points.gpoint + points.g2point); points.h2point = reduceTo22(points.upoint + points.hpoint);
+                points.h1point = reduceTo22(points.hpoint + points.h2point); points.i2point = reduceTo22(points.upoint + points.ipoint);
+                points.i1point = reduceTo22(points.ipoint + points.i2point);
+                calculateSidePoints(points.apoint, points.fpoint, 'af', points); calculateSidePoints(points.fpoint, points.bpoint, 'fb', points);
+                calculateSidePoints(points.bpoint, points.gpoint, 'bg', points); calculateSidePoints(points.gpoint, points.cpoint, 'gc', points);
+                calculateSidePoints(points.cpoint, points.ipoint, 'ci', points); calculateSidePoints(points.ipoint, points.dpoint, 'id', points);
+                calculateSidePoints(points.dpoint, points.hpoint, 'dh', points); calculateSidePoints(points.hpoint, points.apoint, 'ha', points);
+                points.sky = reduceTo22(points.bpoint + points.dpoint); points.earth = reduceTo22(points.apoint + points.cpoint);
+                points.male = reduceTo22(points.fpoint + points.ipoint); points.female = reduceTo22(points.gpoint + points.hpoint);
+                points.purpose = reduceTo22(points.sky + points.earth); points.social = reduceTo22(points.male + points.female);
+                points.generalpurpose = reduceTo22(points.purpose + points.social); return points;
+            }
+
+            // --- Clear Display Function --- (Unchanged)
+            function clearMatrixDisplay() {
+                if (svgElement) {
+                    for (const pointId of matrixPointIds) {
+                        const textElement = svgElement.getElementById(pointId);
+                        if (textElement) { textElement.textContent = ''; }
+                    }
+                } else { console.warn("SVG element not found for clearing."); }
+                for (const key in sidebarValueElements) {
+                    if (sidebarValueElements[key]) { sidebarValueElements[key].textContent = '--'; }
+                }
+                if(sidebarContainer) sidebarContainer.style.visibility = 'visible';
+            }
+
+            // --- Display Function --- (Unchanged)
+            function displayMatrix(points) {
+                if (!points) { console.error("DisplayMatrix called with invalid points data."); clearMatrixDisplay(); return; }
+                if (svgElement) {
+                    for (const pointId of matrixPointIds) {
+                        const textElement = svgElement.getElementById(pointId);
+                        if (textElement) {
+                            const value = points[pointId];
+                            if (value !== undefined && value !== null && !isNaN(value)) { textElement.textContent = value; }
+                            else { textElement.textContent = '?'; }
+                        }
+                    }
+                     svgElement.style.display = 'block';
+                } else {
+                     console.error("SVG element not found for display.");
+                     matrixContainer.innerHTML = "<p style='color:red;'>Error: SVG could not be rendered.</p>";
+                }
+                for (const key in sidebarValueElements) {
+                     const element = sidebarValueElements[key];
+                     if (element) {
+                          const value = points[key];
+                          if (value !== undefined && value !== null && !isNaN(value)) { element.textContent = value; }
+                          else { element.textContent = '?'; }
+                     }
+                }
+                if (sidebarContainer) sidebarContainer.style.visibility = 'visible';
+                if (loadingMessage) loadingMessage.style.display = 'none';
+            }
+
+            // --- NEW: Custom Tooltip Event Handlers ---
+            function handleTooltipMouseOver(event) {
+                const targetElement = event.target;
+                if (!targetElement || !customTooltip) return;
+
+                const numberText = targetElement.textContent;
+                const number = parseInt(numberText?.trim(), 10);
+
+                if (!isNaN(number) && number >= 1 && number <= 22) {
+                    const cardName = tarotCardMap[number];
+                    if (cardName) {
+                        customTooltip.textContent = cardName;
+                        // Initial position - slightly offset from cursor
+                        customTooltip.style.left = (event.pageX + 15) + 'px';
+                        customTooltip.style.top = (event.pageY + 10) + 'px';
+                        customTooltip.style.display = 'block';
+                    } else {
+                        customTooltip.style.display = 'none'; // Hide if no valid card name
+                    }
+                } else {
+                    customTooltip.style.display = 'none'; // Hide if not a valid number element
+                }
+            }
+
+            function handleTooltipMouseOut(event) {
+                if (customTooltip) {
+                    customTooltip.style.display = 'none';
+                }
+            }
+
+            function handleTooltipMouseMove(event) {
+                // Only move if the tooltip is currently visible
+                if (customTooltip && customTooltip.style.display === 'block') {
+                    // Update position to follow the cursor
+                    customTooltip.style.left = (event.pageX + 15) + 'px';
+                    customTooltip.style.top = (event.pageY + 10) + 'px';
+                }
+            }
+
+            // --- NEW: Function to Apply Custom Tooltip Listeners ---
+            function applyCustomTooltips() {
+                 // Select all elements that should have tooltips
+                 const tooltipTargets = document.querySelectorAll('.matrix-value-point, .sidebar-value-box');
+
+                 tooltipTargets.forEach(target => {
+                     target.addEventListener('mouseover', handleTooltipMouseOver);
+                     target.addEventListener('mouseout', handleTooltipMouseOut);
+                     target.addEventListener('mousemove', handleTooltipMouseMove);
+                 });
+                 console.log(`Applied custom tooltips to ${tooltipTargets.length} elements.`);
+            }
+
+
+            // --- Function to setup the matrix display ---
+            function setupMatrix() {
+                svgElement = document.getElementById('matrix');
+
+                if (svgElement) {
+                    console.log("Found embedded SVG.");
+                    if (loadingMessage) loadingMessage.style.display = 'none';
+                    clearMatrixDisplay();
+                    applyCustomTooltips(); // <-- Apply listeners AFTER SVG is confirmed
+                    return Promise.resolve();
+                }
+                else {
+                    console.error("Embedded SVG element #matrix not found.");
+                    matrixContainer.innerHTML = `<p style="color:red;">Could not find matrix SVG element.</p>`;
+                    if(sidebarContainer) sidebarContainer.style.visibility = 'visible';
+                    clearMatrixDisplay(); // Clear sidebar
+                    applyCustomTooltips(); // <-- Still apply to sidebar even if SVG fails
+                    return Promise.reject("SVG element not found");
+                }
+            }
+
+            // --- Function to handle the calculation process --- (Unchanged)
+            function handleCalculation() {
+                clearMatrixDisplay();
+                 try {
+                    const day = parseInt(dayInput.value, 10);
+                    const month = parseInt(monthInput.value, 10);
+                    const year = parseInt(yearInput.value, 10);
+                    const matrixValues = calculateMatrix(day, month, year);
+                    displayMatrix(matrixValues);
+
+                    // Update URL with the current date
+                    const newUrl = `${window.location.pathname}?date=${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    window.history.pushState({ path: newUrl }, '', newUrl);
+
+                 }
+                 catch (error) {
+                    console.error("Calculation Error:", error);
+                    // Use a more subtle error display than alert if possible
+                    // For now, keep alert for visibility
+                    alert("Error calculating matrix: " + error.message);
+                 }
+            }
+
+            // --- Event Listener for Button ---
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', handleCalculation);
+            } else {
+                console.error("Calculate button not found!");
+            }
+
+            // --- Event Listeners for Enter Key in Input Fields ---
+            [dayInput, monthInput, yearInput].forEach(input => {
+                if (input) {
+                    input.addEventListener('keydown', function(event) {
+                        if (event.key === 'Enter') {
+                            event.preventDefault(); // Prevent default form submission or other newline behavior
+                            handleCalculation();
+                        }
+                    });
+                }
+            });
+
+            // --- Event Listener for Today Link ---
+            const todayLink = document.getElementById('todayLink');
+            if (todayLink) {
+                todayLink.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the link from actually navigating
+                    const today = new Date();
+                    dayInput.value = today.getDate();
+                    monthInput.value = today.getMonth() + 1; // JavaScript months are 0-indexed
+                    yearInput.value = today.getFullYear();
+                    handleCalculation(); // Trigger calculation with the current date
+                });
+            } else {
+                console.error("Today link not found!");
+            }
+            // --- Event Listener for Yesterday Link ---
+            const yesterdayLink = document.getElementById('yesterdayLink');
+            if (yesterdayLink) {
+                yesterdayLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    let day = parseInt(dayInput.value, 10);
+                    let month = parseInt(monthInput.value, 10) - 1; // JS months 0-indexed
+                    let year = parseInt(yearInput.value, 10);
+                    if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
+                        let date = new Date(year, month, day);
+                        date.setDate(date.getDate() - 1);
+                        dayInput.value = date.getDate();
+                        monthInput.value = date.getMonth() + 1;
+                        yearInput.value = date.getFullYear();
+                        handleCalculation();
+                    }
+                });
+            } else {
+                console.error("Yesterday link not found!");
+            }
+            // --- Event Listener for Tomorrow Link ---
+            const tomorrowLink = document.getElementById('tomorrowLink');
+            if (tomorrowLink) {
+                tomorrowLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    let day = parseInt(dayInput.value, 10);
+                    let month = parseInt(monthInput.value, 10) - 1; // JS months 0-indexed
+                    let year = parseInt(yearInput.value, 10);
+                    if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
+                        let date = new Date(year, month, day);
+                        date.setDate(date.getDate() + 1);
+                        dayInput.value = date.getDate();
+                        monthInput.value = date.getMonth() + 1;
+                        yearInput.value = date.getFullYear();
+                        handleCalculation();
+                    }
+                });
+            } else {
+                console.error("Tomorrow link not found!");
+            }
+
+            // --- Initial Load and Setup ---
+            // Read date from URL or set to current date
+            const urlParams = new URLSearchParams(window.location.search);
+            const dateFromUrl = urlParams.get('date');
+            let initialDateSetFromUrl = false;
+
+            if (dateFromUrl) {
+                const parts = dateFromUrl.split('-');
+                if (parts.length === 3) {
+                    const year = parseInt(parts[0], 10);
+                    const month = parseInt(parts[1], 10); // month is 1-12 from URL
+                    const day = parseInt(parts[2], 10);
+
+                    if (!isNaN(day) && !isNaN(month) && !isNaN(year) &&
+                        month >= 1 && month <= 12 && day >= 1 && day <= 31 &&
+                        String(year).length === 4) {
+
+                        dayInput.value = day;
+                        monthInput.value = month;
+                        yearInput.value = year;
+                        initialDateSetFromUrl = true;
+                        console.log(`Date set from URL: ${day}/${month}/${year}`);
+                    } else {
+                        console.warn("Invalid date format or values in URL parameter:", dateFromUrl);
+                    }
+                } else {
+                    console.warn("Invalid date format in URL parameter:", dateFromUrl);
+                }
+            }
+
+            // If date was not set from URL, then set to current date
+            if (!initialDateSetFromUrl) {
+                const today = new Date();
+                dayInput.value = today.getDate();
+                monthInput.value = today.getMonth() + 1; // JavaScript months are 0-indexed
+                yearInput.value = today.getFullYear();
+                console.log("Date set to current date by default.");
+            }
+
+            setupMatrix()
+                .then(() => {
+                    console.log("Matrix setup complete.");
+                    handleCalculation(); // Perform initial calculation based on URL or current date
+                 })
+                .catch((error) => {
+                    console.error("Matrix setup failed:", error);
+                    // Attempt to calculate for sidebar anyway
+                    handleCalculation();
+                 });
+
+        }); // End DOMContentLoaded
+    </script>
+    <!-- END OF EMBEDDED JAVASCRIPT -->
+</body>
+</html>
