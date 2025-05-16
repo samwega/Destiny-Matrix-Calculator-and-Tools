@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+    <!-- Destiny Matrix Date Range Calculator / Research Tool - v1.2 *** Made by Alexander Glavan, 2025 - https://glavans.com *** -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destiny Matrix: Range Calculator</title>
+
+    <!-- *** Favicon *** -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕸️</text></svg>">
+    <!-- *************** -->
+
+    <style>
+    body {
+        font-family: Candara, 'Segoe UI', Tahoma, Geneva, Verdana, Arial, Helvetica, sans-serif;
+        background: #181f2a;
+        margin: 0;
+        padding: 0;
+        color: #f2f6fa;
+    }
+    .container {
+        max-width: 95vw;
+        min-width: 320px;
+        margin: 40px auto;
+        background: #232b3a;
+        border-radius: 10px;
+        box-shadow: 0 2px 16px #0008;
+        padding: 32px;
+    }
+    .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 0;
+    max-width: 920px;
+    margin: 0 auto;
+    align-items: center;
+}
+.compact-input,
+.block-counter,
+.block-counter.overlap,
+.block-counter.total,
+.half-width-btn {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.button-row-grid {
+    display: contents;
+}
+.compact-input {
+    width: 100%;
+    max-width: 460px;
+    min-width: 0;
+    box-sizing: border-box;
+} 
+.block-counter, .block-counter.overlap, .block-counter.total, .half-width-btn {
+    width: 100%;
+    max-width: 460px;
+    min-width: 0;
+    box-sizing: border-box;
+} 
+.button-row-grid {
+    display: grid;
+    grid-template-columns: 460px 460px;
+    gap: 0;
+    margin-top: 18px;
+    width: 100%;
+    grid-column: 1 / span 2;
+}
+.button-row-grid > :first-child {
+    grid-column: 1 / 2;
+}
+.button-row-grid > :last-child {
+    grid-column: 2 / 3;
+}
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        max-width: 98vw;
+    }
+    .compact-input, .block-counter, .half-width-btn {
+        width: 98vw !important;
+        min-width: 0 !important;
+    }
+    .form-grid label {
+        justify-self: start;
+        padding-right: 0;
+    }
+}
+
+    .form-half label,
+    .form-half input[type="date"],
+    .form-half input[type="number"] {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .button-row-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 18px;
+    width: 100%;
+    grid-column: 1 / span 2;
+} 
+.half-width-btn, .block-counter.overlap {
+    width: 100%;
+    height: 48px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0;
+    border-radius: 8px;
+    padding: 0;
+} 
+.block-counter.overlap {
+    color: #9fff8a;
+    border-color: #46e85a;
+    background: #233a2b;
+}
+.block-counter {
+    width: 100%;
+    height: 48px;
+    font-size: 17px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 0;
+}
+    h2 {
+        text-align: center;
+        color: #7bdfff;
+        letter-spacing: 1px;
+        margin-bottom: 24px;
+    }
+    label {
+        display: block;
+        margin-top: 18px;
+        font-weight: 600;
+        color: #b5c8e7;
+    }
+    input[type="date"], input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border-radius: 4px;
+        border: 1px solid #38405a;
+        background: #181f2a;
+        color: #f2f6fa;
+        font-size: 16px;
+        transition: border 0.2s;
+    }
+    input[type="date"]:focus, input[type="number"]:focus {
+        border: 1.5px solid #7bdfff;
+        outline: none;
+    }
+    input[type="submit"] {
+        margin-top: 28px;
+        width: 100%;
+        background: linear-gradient(90deg, #2b72d6 0%, #3197e8 100%);
+        color: #fff;
+        border: none;
+        padding: 14px;
+        border-radius: 4px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 8px #0003;
+        transition: background 0.2s;
+    }
+    input[type="submit"]:hover {
+        background: linear-gradient(90deg, #1b4a8a 0%, #2276b9 100%);
+    }
+    .results {
+        margin-top: 32px;
+        background: #20293b;
+        padding: 20px;
+        border-radius: 8px;
+        min-height: 40px;
+        font-family: monospace;
+        white-space: pre;
+        color: #e3f3ff;
+        box-shadow: 0 1px 4px #0004;
+        font-size: 16px;
+        overflow-x: auto;
+        width: 100%;
+        box-sizing: border-box;
+        max-width: 100vw;
+    }
+    .results table, .results th, .results td {
+    border: 2px solid #38405a !important;
+    font-size: 24px;
+    border-collapse: collapse;
+    padding: 3px 6px;
+}
+.results table {
+    margin-left: auto;
+    margin-right: auto;
+}
+    .input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.1em;
+}
+.compact-input {
+    width: 90px;
+    min-width: 60px;
+    font-size: 14px;
+    padding: 7px 8px;
+    margin-left: 12px;
+    border-radius: 5px;
+    border: 1px solid #38405a;
+    background: #181f2a;
+    color: #f2f6fa;
+}
+.block-counter {
+    background: #20293b;
+    color: #7bdfff;
+    border: 1.5px solid #3197e8;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 600;
+    margin-left: 18px;
+    min-width: 120px;
+    min-height: 44px;
+    padding: 10px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 4px #0002;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: border 0.2s;
+}
+.form-grid label {
+    justify-self: end;
+    align-self: center;
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #b5c8e7;
+    padding-right: 12px;
+    font-size: 18px;
+}
+
+.form-grid .input-cell {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+}
+
+.compact-input, .block-counter, .half-width-btn {
+    width: 260px;
+    min-width: 0;
+    max-width: 100%;
+    font-size: 17px;
+    padding: 10px 18px;
+    height: 44px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin: 0;
+}
+
+.block-counter {
+    background: #20293b;
+    color: #7bdfff;
+    border: 1.5px solid #3197e8;
+    font-weight: 600;
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 4px #0002;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: border 0.2s;
+}
+.block-counter.overlap {
+    color: #9fff8a;
+    border-color: #46e85a;
+    background: #233a2b;
+}
+.block-counter.total {
+    color: #ffc46b;
+    border-color: #ffb347;
+    background: #2e2a23;
+}
+.button-row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    grid-column: 2 / 3;
+    width: 100%;
+    margin-top: 18px;
+}
+
+.half-width-btn {
+    width: 220px;
+    height: 44px;
+    font-size: 17px;
+    padding: 10px 18px;
+    border-radius: 8px;
+}
+
+.block-counter.overlap {
+    color: #9fff8a;
+    border-color: #46e85a;
+    background: #233a2b;
+}
+.block-counter.total {
+    color: #ffc46b;
+    border-color: #ffb347;
+    background: #2e2a23;
+}
+
+    ::selection {
+        background: #3197e8;
+        color: #fff;
+    }
+</style>
+<script>
+// Auto-fill today's date in both date inputs on page load
+window.addEventListener('DOMContentLoaded', function() {
+    var today = new Date().toISOString().slice(0, 10);
+    document.getElementById('startDate').value = today;
+    document.getElementById('endDate').value = today;
+});
+</script>
+</head>
+<body>
+    <div class="container">
+        <form id="rangeForm" autocomplete="off">
+    <div class="screenshot-grid">
+        <!-- Row 1: Title | Start Date -->
+        <div class="screenshot-title">Destiny Matrix Research Tool</div>
+        <input type="date" id="startDate" name="startDate" required class="screenshot-input" placeholder="mm/dd/yyyy">
+        <!-- Row 2: Days Counter | End Date -->
+        <div id="totalDaysCounter" class="screenshot-counter total"></div>
+        <input type="date" id="endDate" name="endDate" required class="screenshot-input" placeholder="mm/dd/yyyy">
+        <!-- Row 3: Core Counter | Core Input -->
+        <div id="epointCounter" class="screenshot-counter"></div>
+        <input type="number" id="targetEpoint" name="targetEpoint" min="1" max="22" class="screenshot-input" placeholder="Core #">
+        <!-- Row 4: Life Purpose Counter | Life Purpose Input -->
+        <div id="generalPurposeCounter" class="screenshot-counter"></div>
+        <input type="number" id="targetGeneralPurpose" name="targetGeneralPurpose" min="1" max="22" class="screenshot-input" placeholder="Life Purpose">
+        <!-- Row 5: Overlap Counter | Run Button -->
+        <div id="overlapCounter" class="screenshot-counter overlap"></div>
+        <button type="submit" class="screenshot-btn">Run</button>
+    </div>
+</form>
+<div class="results" id="results"></div>
+<style>
+.screenshot-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 24px 24px;
+    align-items: center;
+    justify-items: stretch;
+    max-width: 760px;
+    margin: 0 auto 0 auto;
+}
+.screenshot-title {
+    grid-column: 1 / 2;
+    background: linear-gradient(90deg,#7bdfff 60%,#3197e8 100%);
+    color: #181f2a;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-align: left;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 10px #0002;
+    margin-bottom: 0;
+    text-align: center;
+}
+.screenshot-input {
+    width: 100%;
+    max-width: 210px;
+    font-size: 1.18rem;
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1.5px solid #222c3a;
+    background: #181f2a;
+    color: #f2f6fa;
+    box-sizing: border-box;
+    transition: border 0.2s;
+    text-align: left;
+    margin-left: auto;
+    margin-right: 0;
+}
+.screenshot-input:focus {
+    outline: none;
+    border-color: #7bdfff;
+}
+.screenshot-counter {
+    width: 100%;
+    min-height: 56px;
+    font-size: 1.35rem;
+    font-weight: 600;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #20293b;
+    color: #7bdfff;
+    border: 2px solid #3197e8;
+    box-sizing: border-box;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    padding: 0 18px;
+}
+.screenshot-counter.total {
+    color: #ffc46b;
+    border-color: #ffb347;
+    background: #2e2a23;
+    font-size: 1.4rem;
+}
+.screenshot-counter.overlap {
+    color: #9fff8a;
+    border-color: #46e85a;
+    background: #233a2b;
+    font-size: 1.3rem;
+}
+.screenshot-btn {
+    width: 100%;
+    max-width: 210px;
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 13px 0;
+    background: #f2f6fa;
+    color: #181f2a;
+    border: 2px solid #222c3a;
+    box-shadow: 0 2px 8px #0002;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.screenshot-btn:hover, .screenshot-btn:focus {
+    background: #7bdfff;
+    color: #181f2a;
+}
+.results {
+    margin-top: 40px;
+    background: #20293b;
+    padding: 24px;
+    border-radius: 12px;
+    min-height: 40px;
+    font-family: monospace;
+    white-space: pre;
+    color: #e3f3ff;
+    box-shadow: 0 1px 4px #0004;
+    font-size: 18px;
+    overflow-x: auto;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media (max-width: 800px) {
+    .screenshot-grid { grid-template-columns: 1fr; max-width: 99vw; }
+    .screenshot-title { font-size: 1.3rem; padding: 14px 8px; }
+    .screenshot-counter { font-size: 1.1rem; min-height: 44px; }
+    .screenshot-btn { font-size: 1.1rem; padding: 10px 0; }
+    .results { font-size: 15px; padding: 10px; }
+    .screenshot-input { max-width: 99vw; }
+}
+</style>
+        <style>
+        .title-box {
+            background: linear-gradient(90deg,#7bdfff 60%,#3197e8 100%);
+            color: #181f2a;
+            font-size: 1.6rem;
+            font-weight: 700;
+            border-radius: 10px;
+            padding: 18px 0;
+            text-align: center;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 10px #0002;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #181f2a;
+            margin: 0;
+            padding: 0;
+            color: #f2f6fa;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #232b3a;
+            border-radius: 10px;
+            box-shadow: 0 2px 16px #0008;
+            padding: 32px;
+        }
+        h2 {
+            text-align: center;
+            color: #7bdfff;
+            margin-bottom: 36px;
+        }
+        .modern-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px 22px;
+            align-items: center;
+            justify-items: stretch;
+        }
+        .modern-input {
+            width: 140px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.25rem;
+            padding: 13px 18px;
+            border-radius: 7px;
+            border: 1.5px solid #222c3a;
+            background: #181f2a;
+            color: #f2f6fa;
+            box-sizing: border-box;
+            transition: border 0.2s;
+        }
+        .modern-input:focus {
+            outline: none;
+            border-color: #7bdfff;
+        }
+        .modern-counter {
+            width: 100%;
+            min-height: 48px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #20293b;
+            color: #7bdfff;
+            border: 1.5px solid #3197e8;
+            box-sizing: border-box;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            padding: 0 18px;
+        }
+        .modern-counter.total {
+            color: #ffc46b;
+            border-color: #ffb347;
+            background: #2e2a23;
+        }
+        .modern-counter.overlap {
+            color: #9fff8a;
+            border-color: #46e85a;
+            background: #233a2b;
+        }
+        .modern-btn {
+            width: 100%;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 7px;
+            padding: 13px 0;
+            background: #f2f6fa;
+            color: #181f2a;
+            border: 2px solid #222c3a;
+            box-shadow: 0 2px 8px #0002;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .modern-btn:hover, .modern-btn:focus {
+            background: #7bdfff;
+            color: #181f2a;
+        }
+        @media (max-width: 800px) {
+            .container { max-width: 99vw; }
+            .modern-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <script>
+        // --- Calculation Helper Functions ---
+        function reduceTo22(num) {
+            let n = Math.abs(parseInt(num)); if (isNaN(n)) return NaN;
+            while (n > 22) { n = String(n).split('').reduce((sum, digit) => sum + parseInt(digit), 0); }
+            return n === 0 ? 22 : n;
+        }
+        function sumDigits(num) { const numStr = String(num); return numStr.split('').reduce((sum, digit) => sum + parseInt(digit), 0); }
+        function calculateSidePoints(p1Val, p2Val, prefix, points) {
+            const midVal = reduceTo22(p1Val + p2Val); const q1Val = reduceTo22(p1Val + midVal);
+            const q2Val = reduceTo22(midVal + p2Val); const e1Val = reduceTo22(p1Val + q1Val);
+            const e2Val = reduceTo22(q1Val + midVal); const e3Val = reduceTo22(midVal + q2Val);
+            const e4Val = reduceTo22(q2Val + p2Val); points[`${prefix}point`] = midVal;
+            points[`${prefix}1point`] = q1Val; points[`${prefix}4point`] = q2Val;
+            points[`${prefix}2point`] = e1Val; points[`${prefix}3point`] = e2Val;
+            points[`${prefix}5point`] = e3Val; points[`${prefix}6point`] = e4Val;
+        }
+        // --- Main Calculation Function ---
+        function calculateMatrix(day, month, year) {
+            const points = {};
+            if (!day || !month || !year || isNaN(day) || isNaN(month) || isNaN(year) || year < 1 || day < 1 || day > 31 || month < 1 || month > 12) { throw new Error("Invalid or incomplete date input."); }
+            day = Number(day); month = Number(month); year = Number(year);
+            const yearSum = sumDigits(year); points.apoint = reduceTo22(day); points.bpoint = reduceTo22(month);
+            points.cpoint = reduceTo22(yearSum); points.dpoint = reduceTo22(points.apoint + points.bpoint + points.cpoint);
+            points.epoint = reduceTo22(points.apoint + points.bpoint + points.cpoint + points.dpoint);
+            points.fpoint = reduceTo22(points.apoint + points.bpoint); points.gpoint = reduceTo22(points.bpoint + points.cpoint);
+            points.hpoint = reduceTo22(points.apoint + points.dpoint); points.ipoint = reduceTo22(points.cpoint + points.dpoint);
+            points.jpoint = reduceTo22(points.dpoint + points.epoint); points.npoint = reduceTo22(points.cpoint + points.epoint);
+            points.spoint = reduceTo22(points.epoint + points.apoint); points.tpoint = reduceTo22(points.bpoint + points.epoint);
+            points.lpoint = reduceTo22(points.jpoint + points.npoint); points.kpoint = reduceTo22(points.jpoint + points.lpoint);
+            points.mpoint = reduceTo22(points.lpoint + points.npoint); points.opoint = reduceTo22(points.apoint + points.spoint);
+            points.ppoint = reduceTo22(points.bpoint + points.tpoint); points.qpoint = reduceTo22(points.cpoint + points.npoint);
+            points.rpoint = reduceTo22(points.dpoint + points.jpoint);
+            points.upoint = reduceTo22(points.fpoint + points.gpoint + points.ipoint + points.hpoint);
+            points.vpoint = reduceTo22(points.epoint + points.upoint); points.wpoint = reduceTo22(points.epoint + points.spoint);
+            points.xpoint = reduceTo22(points.epoint + points.tpoint); points.f2point = reduceTo22(points.upoint + points.fpoint);
+            points.f1point = reduceTo22(points.fpoint + points.f2point); points.g2point = reduceTo22(points.upoint + points.gpoint);
+            points.g1point = reduceTo22(points.gpoint + points.g2point); points.h2point = reduceTo22(points.upoint + points.hpoint);
+            points.h1point = reduceTo22(points.hpoint + points.h2point); points.i2point = reduceTo22(points.upoint + points.ipoint);
+            points.i1point = reduceTo22(points.ipoint + points.i2point);
+            calculateSidePoints(points.apoint, points.fpoint, 'af', points); calculateSidePoints(points.fpoint, points.bpoint, 'fb', points);
+            calculateSidePoints(points.bpoint, points.gpoint, 'bg', points); calculateSidePoints(points.gpoint, points.cpoint, 'gc', points);
+            calculateSidePoints(points.cpoint, points.ipoint, 'ci', points); calculateSidePoints(points.ipoint, points.dpoint, 'id', points);
+            calculateSidePoints(points.dpoint, points.hpoint, 'dh', points); calculateSidePoints(points.hpoint, points.apoint, 'ha', points);
+            points.sky = reduceTo22(points.bpoint + points.dpoint); points.earth = reduceTo22(points.apoint + points.cpoint);
+            points.male = reduceTo22(points.fpoint + points.ipoint);
+            points.female = reduceTo22(points.gpoint + points.hpoint);
+            points.purpose = reduceTo22(points.sky + points.earth);
+            points.social = reduceTo22(points.male + points.female);
+            points.generalpurpose = reduceTo22(points.purpose + points.social);
+            return points;
+        }
+        // --- Date Range Helper ---
+        // Helper to parse 'YYYY-MM-DD' as local date
+        function parseLocalDate(dateString) {
+            const [year, month, day] = dateString.split('-').map(Number);
+            return new Date(year, month - 1, day);
+        }
+        // --- Date Range Helper ---
+        function* dateRange(start, end) {
+            let current = parseLocalDate(start);
+            end = parseLocalDate(end);
+            while (current <= end) {
+                yield new Date(current);
+                current.setDate(current.getDate() + 1);
+            }
+        }
+        // --- Main Handler ---
+        document.getElementById('rangeForm').onsubmit = function(e) {
+    e.preventDefault();
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const targetEpoint = document.getElementById('targetEpoint').value;
+    const targetGeneralPurpose = document.getElementById('targetGeneralPurpose').value;
+    const resultsDiv = document.getElementById('results');
+    const epointCounter = document.getElementById('epointCounter');
+    const generalPurposeCounter = document.getElementById('generalPurposeCounter');
+    const overlapCounter = document.getElementById('overlapCounter');
+    const totalDaysCounter = document.getElementById('totalDaysCounter');
+    resultsDiv.textContent = '';
+    epointCounter.textContent = '';
+    generalPurposeCounter.textContent = '';
+    overlapCounter.textContent = '';
+    totalDaysCounter.textContent = '';
+    if (!startDate || !endDate) {
+        resultsDiv.textContent = 'Please enter both start and end dates.';
+        return;
+    }
+
+    // Enforce 2501-year maximum limit for any case
+    const startYear = parseLocalDate(startDate).getFullYear();
+    const endYear = parseLocalDate(endDate).getFullYear();
+    if (Math.abs(endYear - startYear) > 2500) {
+        resultsDiv.textContent = 'Error: Period covered cannot exceed 2501 years.';
+        return;
+    }
+
+    // Enforce 130-year limit if both targets are empty
+    if (!targetEpoint && !targetGeneralPurpose) {
+        if (Math.abs(endYear - startYear) > 130) {
+            resultsDiv.textContent = 'Error: Period covered cannot exceed 130 years when both Target inputs are empty.';
+            return;
+        }
+    }
+
+    // Calculate total dates in range (inclusive)
+    const start = parseLocalDate(startDate);
+    const end = parseLocalDate(endDate);
+    const totalDates = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1;
+    totalDaysCounter.textContent = totalDates + ' total days';
+    totalDaysCounter.classList.add('total');
+    let matches = [];
+    let epointMatches = 0;
+    let generalPurposeMatches = 0;
+    for (let date of dateRange(startDate, endDate)) {
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        let points;
+        try {
+            points = calculateMatrix(day, month, year);
+        } catch (err) {
+            continue;
+        }
+        if (targetEpoint && Number(points.epoint) === Number(targetEpoint)) epointMatches++;
+        if (targetGeneralPurpose && Number(points.generalpurpose) === Number(targetGeneralPurpose)) generalPurposeMatches++;
+        let match = true;
+        if (targetEpoint && Number(points.epoint) !== Number(targetEpoint)) match = false;
+        if (targetGeneralPurpose && Number(points.generalpurpose) !== Number(targetGeneralPurpose)) match = false;
+        if (match) {
+            // Format date as YYYY-MM-DD in local time
+            const formatted = date.getFullYear().toString().padStart(4, '0') + '-' +
+                (date.getMonth() + 1).toString().padStart(2, '0') + '-' +
+                date.getDate().toString().padStart(2, '0');
+            matches.push(`${formatted} - Core ${points.epoint}; Life Purpose ${points.generalpurpose}; Sacral ${points.jpoint}`);
+        }
+    }
+    function percent(count) {
+        return totalDates > 0 ? ' (' + ((count / totalDates * 100).toFixed(2)) + '%)' : '';
+    }
+    if (targetEpoint) epointCounter.textContent = epointMatches + ' found' + percent(epointMatches);
+    if (targetGeneralPurpose) generalPurposeCounter.textContent = generalPurposeMatches + ' found' + percent(generalPurposeMatches);
+    // Only show overlap if all inputs are present
+    if (startDate && endDate && targetEpoint && targetGeneralPurpose && matches.length > 0) {
+        overlapCounter.textContent = matches.length + ' overlap' + percent(matches.length);
+    } else {
+        overlapCounter.textContent = '';
+    }
+    // Always build an HTML table for results
+    let tableRows = '';
+    let resultCount = 0;
+    if (!targetEpoint && !targetGeneralPurpose) {
+        // Show all dates
+        for (let date of dateRange(startDate, endDate)) {
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            let points;
+            try {
+                points = calculateMatrix(day, month, year);
+            } catch (err) {
+                continue;
+            }
+            // Format date as YYYY-MM-DD in local time
+            const formatted = date.getFullYear().toString().padStart(4, '0') + '-' +
+                (date.getMonth() + 1).toString().padStart(2, '0') + '-' +
+                date.getDate().toString().padStart(2, '0');
+            tableRows += `<tr><td>${formatted}</td><td style='color:#33f2df;'>${points.epoint}</td><td>${points.generalpurpose}</td><td style='color:#ff9800;'>${points.jpoint}</td><td style='color:#2fff7a; text-align:center;'>${points.xpoint}&rarr;${points.wpoint}</td></tr>`;
+            resultCount++;
+        }
+    } else {
+        // Only show filtered matches
+        for (let match of matches) {
+            // match is a string like: 'YYYY-MM-DD - Core X; Life Purpose Y; Sacral Z'
+            // We'll parse it back to columns for consistency
+            const m = match.match(/^(\d{4}-\d{2}-\d{2}) - Core (\d+); Life Purpose (\d+); Sacral (\d+)/);
+            if (m) {
+                const [, date, core, lifePurpose, sacral] = m;
+                // For filtered matches, recalculate xpoint and wpoint for the row
+                const [year, month, day] = date.split('-').map(Number);
+                let points;
+                try {
+                    points = calculateMatrix(day, month, year);
+                } catch (err) {
+                    points = { xpoint: '', wpoint: '' };
+                }
+                tableRows += `<tr><td>${date}</td><td style='color:#ffc46b;'>${core}</td><td>${lifePurpose}</td><td style='color:#ff9800;'>${sacral}</td><td style='color:#2fff7a; text-align:center;'>${points.xpoint}&rarr;${points.wpoint}</td></tr>`;
+                resultCount++;
+            } else {
+                // fallback: show as a single row
+                tableRows += `<tr><td colspan="6">${match}</td></tr>`;
+                resultCount++;
+            }
+        }
+    }
+    if (resultCount > 0) {
+        resultsDiv.innerHTML = `<div style="overflow-x:auto"><table style="border-collapse:collapse;background:transparent;border:1.5px solid #38405a;"><thead><tr>
+            <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Date</th>
+            <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Core</th>
+            <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Destiny</th>
+            <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Sacral</th>
+            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1.5px solid #38405a;'>Heart &amp; Desire</th>
+        </tr></thead><tbody>${tableRows}</tbody></table></div>`;
+
+    } else {
+        resultsDiv.textContent = 'No matches found.';
+    }
+};
+</script>
+</body>
+</html>
