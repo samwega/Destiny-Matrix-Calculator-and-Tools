@@ -11,3 +11,5 @@ Hovering over any of the numbers displays the name of the respective tarot card.
 This was all coded with AI Studio's Gemini 2.5 and functionality was later added in Windsurf with GPT 4.1.
 
 Feel free to request additional functionality.
+
+![Destiny Matrix Calculator](https://imgur.com/a/OxUNzIa)
