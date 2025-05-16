@@ -1,5 +1,7 @@
 Simple html + css + javascript one file webapp for calculating Destiny Matrix charts.
 
+Live version here: https://glavans.com/destiny-matrix-calc.html
+
 It encodes the date in the URL so it can be linked or shared.
 
 "reset date" loads the to current date, and the arrows "<<" and ">>" load the previous and next day's date.
