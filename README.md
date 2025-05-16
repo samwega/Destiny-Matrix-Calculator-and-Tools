@@ -14,4 +14,4 @@ This was all vibe coded in Windsurf with GPT 4.1.
 
 Feel free to request additional functionality.
 
-![Destiny Matrix Research Tool](https://imgur.com/Hqn5Xsg)
+![Destiny Matrix Research Tool](https://i.imgur.com/Hqn5Xsg.png)
