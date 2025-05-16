@@ -8,7 +8,7 @@ I find the Heart and Heart's desire (the green bubbles, a.k.a. Heart chakra) are
 
 You can play with the app here:
 Link: [Destiny Matrix Research Tool - Live Preview](https://glavans.com/destiny-matrix-research-tool.html)
-Also check my ![Destiny Matrix Calculator](https://github.com/samwega/destiny-matrix-calc) this is based on.
+Also check my [Destiny Matrix Calculator](https://github.com/samwega/destiny-matrix-calc) this is based on.
 
 This was all vibe coded in Windsurf with GPT 4.1.
 
