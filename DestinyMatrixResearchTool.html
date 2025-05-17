@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <!-- Destiny Matrix Date Range Calculator / Research Tool - v1.2 *** Made by Alexander Glavan, 2025 - https://glavans.com *** -->
+    <!-- Destiny Matrix Date Range Calculator / Research Tool - v1.3 *** Made by Alexander Glavan, 2025 - https://glavans.com *** -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -338,6 +338,36 @@ window.addEventListener('DOMContentLoaded', function() {
 </head>
 <body>
     <div class="container">
+        <div class="button-row-flex">
+    <button id="showYearsTableBtn" class="half-width-btn" style="background: #7bdfff; color: #181f2a; font-weight: bold;">Show Years Numerology</button>
+    <button id="launchDestinyMatrixBtn" class="half-width-btn" style="background: linear-gradient(90deg,#5fffca 60%,#2ec87d 100%); color: #181f2a; font-weight: bold; border: none; border-radius: 8px; box-shadow: 0 2px 10px #0002; padding: 0 18px; font-size: 1.05em;" onclick="window.open('https://glavans.com/apps/destiny-matrix-calc.html', '_blank'); return false;">Launch Destiny<br>Matrix Calculator</button>
+</div>
+<style>
+.button-row-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+@media (max-width: 600px) {
+  .button-row-flex {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+</style>
+<div id="yearsTableHolder" style="display:none; margin-top: 20px;"></div>
+<!-- DEV TIP: If new buttons or changes don't appear, hold Ctrl and click Reload (Ctrl+F5) to force-refresh and bypass cache. -->
+<script>// Auto-refresh helper for dev: appends a cache-busting query string to CSS/JS imports if needed.
+if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+  document.querySelectorAll('link[rel="stylesheet"], script[src]').forEach(el => {
+    let attr = el.tagName === 'LINK' ? 'href' : 'src';
+    el[attr] += (el[attr].includes('?') ? '&' : '?') + 'v=' + Date.now();
+  });
+}
+</script>
         <form id="rangeForm" autocomplete="off">
     <div class="screenshot-grid">
         <!-- Row 1: Title | Start Date -->
@@ -478,6 +508,86 @@ window.addEventListener('DOMContentLoaded', function() {
     .screenshot-btn { font-size: 1.1rem; padding: 10px 0; }
     .results { font-size: 15px; padding: 10px; }
     .screenshot-input { max-width: 99vw; }
+}
+
+/* Scrollable Table Container */
+.scroll-table-container {
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #2a3446;
+    color: #f2f6fa;
+}
+
+.scroll-table-container th {
+    background: #1a202c;
+    color: #7bdfff;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 15px;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border: 1px solid #3a4a5f;
+}
+
+.scroll-table-container td {
+    padding: 10px 15px;
+    border: 1px solid #3a4a5f;
+    text-align: center;
+}
+
+.scroll-table-container tr:nth-child(even) {
+    background: #232f3e;
+}
+
+.scroll-table-container tr:hover {
+    background: #2c3e50;
+}
+
+/* First column styling */
+.scroll-table-container th:first-child,
+.scroll-table-container td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    background: #2a3a4d;
+    min-width: 120px;
+    text-align: left;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.scroll-table-container tr:hover td:first-child {
+    background: #34495e;
+}
+
+/* Remove any NaN cells */
+.scroll-table-container td:empty,
+.scroll-table-container th:empty {
+    display: none;
+}
+
+/* Ensure no decimal numbers */
+.scroll-table-container td:not(:first-child) {
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+}
+
+/* Highlight years ending with 9 */
+.scroll-table-container td[data-year-ends-with-9="true"],
+.scroll-table-container .year-ends-with-9 {
+    background-color: #1a5c1a !important;
+    color: white !important;
+    font-weight: bold !important;
 }
 </style>
         <style>
@@ -795,6 +905,185 @@ window.addEventListener('DOMContentLoaded', function() {
         resultsDiv.textContent = 'No matches found.';
     }
 };
+</script>
+<style>
+/* Scroll container for the table */
+.scroll-container {
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+td {
+    border: 1px solid #444;
+    padding: 8px 12px;
+    text-align: center;
+    color: #f2f6fa;
+}
+
+td:first-child {
+    position: sticky;
+    left: 0;
+    background: #2a3a4d;
+    font-weight: bold;
+    text-align: left;
+    min-width: 120px;
+    white-space: nowrap;
+}
+
+tr:nth-child(even) {
+    background-color: #232f3e;
+}
+
+tr:hover {
+    background-color: #2c3e50;
+}
+
+/* Highlight years ending with 9 */
+td[data-year-ends-with-9="true"] {
+    background-color: #1a5c1a;
+    color: white;
+    font-weight: bold;
+}
+</style>
+
+<script>
+document.getElementById('showYearsTableBtn').addEventListener('click', function() {
+    const holder = document.getElementById('yearsTableHolder');
+    const button = this;
+    
+    if (holder.style.display === 'none') {
+        button.textContent = 'Hide Years Numerology';
+        
+        // Only load the table if it hasn't been loaded yet
+        if (!holder.hasChildNodes()) {
+            // Show loading state
+            holder.innerHTML = '<div style="padding: 20px; text-align: center; color: #7bdfff;">Loading years table...</div>';
+            holder.style.display = 'block';
+            
+            // Load the original table content
+            fetch('Years_List_table.html')
+                .then(response => response.text())
+                .then(html => {
+                    // Extract just the table content
+                    const temp = document.createElement('div');
+                    temp.innerHTML = html;
+                    const tableContent = temp.querySelector('.scroll-container').innerHTML;
+                    
+                    // Create a new container with the original content
+                    const container = document.createElement('div');
+                    container.className = 'scroll-container';
+                    container.innerHTML = tableContent;
+                    
+                    // Replace the loading message with the table
+                    holder.innerHTML = '';
+                    holder.appendChild(container);
+                    
+                    // Apply highlighting to numbers and green cells
+                    const rows = holder.querySelectorAll('tr');
+                    
+                    rows.forEach(row => {
+                        const cells = row.querySelectorAll('td');
+                        
+                        // Skip header row if it exists
+                        if (cells[0].tagName === 'TH') return;
+                        
+                        // Process each cell in the row
+                        cells.forEach((cell, cellIndex) => {
+                            const text = cell.textContent.trim();
+                            
+                            // Skip the first column (ranges)
+                            if (cellIndex === 0) return;
+                            
+                            // Handle year cells (odd indices)
+                            if (cellIndex % 2 === 1) {
+                                // Remove .0 from year numbers
+                                if (text.endsWith('.0')) {
+                                    cell.textContent = text.slice(0, -2);
+                                }
+                                
+                                // Get the clean year number
+                                const yearText = text.endsWith('.0') ? text.slice(0, -2) : text;
+                                
+                                // Highlight year 2025 in red
+                                if (yearText === '2025') {
+                                    cell.style.backgroundColor = '#ff0000';
+                                    cell.style.color = 'white';
+                                    cell.style.fontWeight = 'bold';
+                                }
+                                // Highlight years ending with 9 in green
+                                else if (yearText.endsWith('9')) {
+                                    cell.style.backgroundColor = '#1a5c1a';
+                                    cell.style.color = 'white';
+                                    cell.style.fontWeight = 'bold';
+                                }
+                            } 
+                            // Handle number cells (even indices)
+                            else if (cellIndex % 2 === 0) {
+                                // Remove .0 from the number display
+                                if (text.endsWith('.0')) {
+                                    const num = text.slice(0, -2);
+                                    cell.textContent = num;
+                                    
+                                    // Re-check if we need to highlight this number
+                                    const number = parseInt(num, 10);
+                                    if (number >= 1 && number <= 22) {
+                                        const span = document.createElement('span');
+                                        span.style.color = '#ffa500';
+                                        span.style.fontWeight = 'bold';
+                                        span.textContent = num;
+                                        
+                                        cell.textContent = '';
+                                        cell.appendChild(span);
+                                    }
+                                } 
+                                // Handle numbers that don't end with .0
+                                else if (/^\d+$/.test(text)) {
+                                    const number = parseInt(text, 10);
+                                    if (number >= 1 && number <= 22) {
+                                        const span = document.createElement('span');
+                                        span.style.color = '#ffa500';
+                                        span.style.fontWeight = 'bold';
+                                        span.textContent = text;
+                                        
+                                        cell.textContent = '';
+                                        cell.appendChild(span);
+                                    }
+                                }
+                            }
+                        });
+                    });
+                    
+                    // Make sure it's visible
+                    holder.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error loading years table:', error);
+                    holder.innerHTML = `
+                        <div style="color: #ff6b6b; padding: 20px; text-align: center;">
+                            Error loading table. Please try again.
+                            <div style="color: #aaa; font-size: 0.9em; margin-top: 10px;">${error.message}</div>
+                        </div>`;
+                });
+        } else {
+            // Just show the existing table
+            holder.style.display = 'block';
+        }
+    } else {
+        // Hide the table
+        holder.style.display = 'none';
+        button.textContent = 'Show Years Numerology';
+    }
+});
 </script>
 </body>
 </html>
