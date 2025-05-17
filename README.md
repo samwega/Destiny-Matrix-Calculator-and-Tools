@@ -7,7 +7,7 @@ You can run every date between two dates without setting up Target Core/Destiny 
 I find the Heart and Heart's desire (the green bubbles, a.k.a. Heart chakra) are very significant, and whyle I didn't think it was useful to target them directly with the search, I find it more useful to paste them (for example "3→14") in your browser's search (Ctrl+F) and get a count or navigate them to see the frequency, patterns, etc.
 
 You can play with the app here:
-Link: [Destiny Matrix Research Tool - Live Preview](https://glavans.com/destiny-matrix-research-tool.html)
+Link: [Destiny Matrix Research Tool - Live Preview](https://glavans.com/apps/destiny-matrix-research-tool.html)
 Also check my [Destiny Matrix Calculator](https://github.com/samwega/destiny-matrix-calc) this is based on.
 
 This was all vibe coded in Windsurf with GPT 4.1.
