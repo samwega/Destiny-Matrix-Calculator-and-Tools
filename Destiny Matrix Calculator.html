@@ -56,8 +56,15 @@
 
         .controls label { margin-right: 0; color: #c0c0c0; font-size: 0.9em; }
         .controls input[type="number"] { width: 65px; padding: 8px 10px; background-color: #1a1a2e; border: 1px solid #4a4a5e; border-radius: 4px; color: #e0e0e0; font-size: 14px; text-align: center; margin-right: 0; }
-        .controls input[type="number"]::-webkit-inner-spin-button, .controls input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-        .controls input[type="number"] { -moz-appearance: textfield; }
+        .controls input[type="number"]::-webkit-inner-spin-button, .controls input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+        .controls input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
         .controls button {
     padding: 10px 20px;
     background: linear-gradient(145deg, #7a288a, #4e277e);
@@ -253,14 +260,83 @@
     text-decoration: underline;
 }
 
+    /* Research Tool Button Styles */
+    .research-tool-btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: linear-gradient(90deg, #08e8de 0%, #7f5af0 100%);
+      color: #181824;
+      font-weight: 700;
+      font-size: 1.17em;
+      border: none;
+      border-radius: 9px;
+      box-shadow: 0 4px 16px 0 rgba(8,232,222,0.12), 0 1.5px 4px 0 rgba(127,90,240,0.10);
+      text-decoration: none;
+      margin-top: 0.7em;
+      margin-bottom: 0.7em;
+      transition: filter 0.2s, transform 0.2s;
+      letter-spacing: 0.04em;
+      text-align: center;
+      outline: none;
+    }
+    .research-tool-btn:hover, .research-tool-btn:focus {
+      filter: brightness(1.08) drop-shadow(0 0 6px #08e8de88);
+      transform: translateY(-2px) scale(1.03);
+      color: #fff;
+      background: linear-gradient(90deg, #7f5af0 0%, #08e8de 100%);
+      text-decoration: none;
+    }
+    .header-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      gap: 18px;
+    }
+    .app-title {
+      margin: 0;
+      font-size: 2.1em;
+      font-weight: 700;
+      color: #f0f0f0;
+      letter-spacing: 0.01em;
+      text-align: left;
+      white-space: nowrap;
+      flex-shrink: 1;
+    }
+    .header-btn {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 1em;
+      padding: 10px 24px;
+    }
+    @media (max-width: 650px) {
+      .header-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .app-title {
+        text-align: center;
+        font-size: 1.25em;
+      }
+      .header-btn {
+        width: 100%;
+        font-size: 0.97em;
+      }
+    }
 </style>
     <!-- END OF EMBEDDED CSS -->
 </head>
 <body>
     <!-- Wrap H1 and Controls for consistent width -->
     <div class="header-controls-wrapper">
-        <!-- ... (H1 and Controls HTML remain exactly the same) ... -->
-         <h1>Destiny Matrix Calculator</h1>
+    <div class="header-row">
+      <h1 class="app-title">Destiny Matrix Calculator</h1>
+      <a href="https://glavans.com/apps/destiny-matrix-research-tool.html" target="_blank" rel="noopener noreferrer" class="research-tool-btn header-btn">
+        See Destiny Matrix Research Tool
+      </a>
+    </div>
         <div class="controls">
             <a href="#" id="yesterdayLink" class="today-link" style="margin-right: 12px; align-self: center;"><<</a>
 
@@ -554,7 +630,8 @@
                  </div>
             </div>
 
-    </div> <!-- End main-content -->
+        
+</div> <!-- End main-content -->
 
     <!-- NEW: Custom Tooltip HTML Element -->
     <div id="custom-tooltip"></div>
