@@ -15,7 +15,7 @@ Hovering over any of the numbers displays the name of the respective tarot card.
 
 This was all coded with AI Studio's Gemini 2.5 and functionality was later added in Windsurf with GPT 4.1.
 
-I've also included a standalone little app, the Core Birthday Lister—I was intrigued by how the Core number during our birthday changes and repeats on a 9 year cycle, so I made this little "Core Number On Every Birthday" calculator.
+I've also included a standalone little app, the Core Birthday Lister—I was intrigued by how the Core number during our birthday changes and repeats on a 9 year cycle, so I made this little calculator. You can check out a live version here [Core Number On Every Birthday](https://glavans.com/apps/core_birthday_lister.html).
 
 ![Core Number On Every Birthday](https://github.com/user-attachments/assets/ca0009c5-2a71-4cca-94fd-b1e67b8f73fa)
 
