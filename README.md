@@ -9,10 +9,15 @@ It encodes the date in the URL so it can be linked or shared.
 
 The years around the octagon move in 1.25 increments, which is 15 months, or 1 year and 3 months.
 
+![Destiny Matrix Calculator](https://i.imgur.com/Q8IPUOM.png)
+
 Hovering over any of the numbers displays the name of the respective tarot card. Destiny Matrix uses the Marseille tarot sequence, which has Justice in the 8th place and Strength in the 11th, the reverse of the more commonly used Rider Waite tarot deck sequence.
 
 This was all coded with AI Studio's Gemini 2.5 and functionality was later added in Windsurf with GPT 4.1.
 
-Feel free to request additional functionality.
+I've also included a standalone little app, the Core Birthday Lister—I was intrigued by how the Core number during our birthday changes and repeats on a 9 year cycle, so I made this little "Core Number On Every Birthday" calculator.
 
-![Destiny Matrix Calculator](https://i.imgur.com/Q8IPUOM.png)
+![Core Number On Every Birthday](https://github.com/user-attachments/assets/ca0009c5-2a71-4cca-94fd-b1e67b8f73fa)
+
+
+Feel free to request additional functionality.
