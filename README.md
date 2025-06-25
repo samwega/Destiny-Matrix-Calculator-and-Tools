@@ -9,7 +9,8 @@ It encodes the date in the URL so it can be linked or shared.
 
 The years around the octagon move in 1.25 increments, which is 15 months, or 1 year and 3 months.
 
-![Destiny Matrix Calculator](https://i.imgur.com/Q8IPUOM.png)
+![Destiny Matrix Calculator](https://github.com/user-attachments/assets/d66d3602-1a47-4246-a0bc-2cc0dc2c4f9d)
+
 
 Hovering over any of the numbers displays the name of the respective tarot card. Destiny Matrix uses the Marseille tarot sequence, which has Justice in the 8th place and Strength in the 11th, the reverse of the more commonly used Rider Waite tarot deck sequence.
 
