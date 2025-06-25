@@ -131,11 +131,11 @@
             max-width: 195px;
             background-color: #2a2a3e;
             border-radius: 7px;
-            padding: 25px 15px 5px 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            padding: 20px 15px 5px 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
-            gap: 7px;
+            gap: 10px;
             margin-bottom: 2px;
         }
 
@@ -639,15 +639,10 @@
             <!-- Sidebar for Additional Calculations -->
             <div id="sidebarContainer" class="sidebar-container">
                 <!-- ... (Entire Sidebar HTML remains exactly the same) ... -->
-                 <!-- Section 1: Spiritual Harmony -->
-                 <div class="sidebar-section main-purpose">
-                    <div class="sidebar-title">Life Purpose</div>
-                    <div class="sidebar-value-box large" id="value-generalpurpose">--</div>
-                    
-                </div>
 
                 <!-- Section 2: Heaven, Earth, Purpose -->
                 <div class="sidebar-section purpose-group">
+                    <div class="sidebar-sublabel purpose-sublabel">Before 40</div> <!-- Moved sublabel -->
                      <div class="sidebar-item">
                          <span class="sidebar-label">Heaven</span>
                          <span class="sidebar-value-box" id="value-sky">--</span>
@@ -660,14 +655,13 @@
                         <span class="sidebar-label">Purpose</span>
                         <span class="sidebar-value-box" id="value-purpose">--</span>
                     </div>
-                    <div class="sidebar-sublabel purpose-sublabel">Before 40</div> <!-- Moved sublabel -->
-                </div>
-
                  <!-- Divider -->
                  <hr class="sidebar-divider">
+                </div>
 
                 <!-- Section 3: Male, Female, Social -->
                 <div class="sidebar-section social-group">
+                    <div class="sidebar-sublabel social-sublabel">After 40</div> <!-- Moved sublabel -->
                      <div class="sidebar-item">
                          <span class="sidebar-label">Male</span>
                          <span class="sidebar-value-box" id="value-male">--</span>
@@ -680,11 +674,18 @@
                          <span class="sidebar-label">Social</span>
                         <span class="sidebar-value-box" id="value-social">--</span>
                     </div>
-                    <div class="sidebar-sublabel social-sublabel">After 40</div> <!-- Moved sublabel -->
-                 </div>
-
                  <!-- Divider -->
                  <hr class="sidebar-divider">
+                 </div>
+
+                <!-- Section 1: Spiritual Harmony -->
+                 <div class="sidebar-section main-purpose">
+                    <div class="sidebar-title">Life Purpose</div>
+                    <div class="sidebar-value-box large" id="value-generalpurpose">--</div>
+                <!-- Divider -->
+                 <hr class="sidebar-divider">   
+                </div>
+
 
                  <!-- Section 4: Chakras -->
                  <div class="sidebar-section chakras-section">
