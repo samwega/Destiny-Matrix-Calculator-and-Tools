@@ -239,17 +239,17 @@
 
         /* Circle Colors & Text Contrast */
         #matrix circle { stroke: rgba(255, 255, 255, 0.1); stroke-width: 0.5px; fill: #e5e7eb; pointer-events: none; /* Circles shouldn't block hover on text */ }
-        #matrix .cls-33 { font-size: 11px; fill: #ffffff !important; font-weight: normal; } /* Side points white */
+        #matrix .cls-33 { font-size: 12px; fill: #ffffff !important; font-weight: normal; } /* Side points white */
         #matrix .cls-10 { fill: #c061ff; } #matrix .cls-19 { fill: #772222; } #matrix .cls-25 { fill: #eab308; }
         #matrix .cls-24 { fill: #e5e7eb; } #matrix .cls-22 { fill: #f97316; } #matrix .cls-21 { fill: #e5e7eb; }
         #matrix .cls-15 { fill: #2fcef2; } #matrix .cls-13 { fill: #3042c2; } #matrix .cls-23 { fill: #e5e7eb; }
-        #matrix .cls-26 { fill: #13df9b; }
+        #matrix .cls-26 { fill: #13df9b; } #matrix .cls-34 { fill: #945a20; }
 
         /* Font size overrides */
-        #matrix .cls-54, #matrix .cls-55 { font-size: 22px; }
-        #matrix .cls-59, #matrix .cls-60 { font-size: 18px; }
-        #matrix .cls-57, #matrix .cls-58 { font-size: 16px; }
-        #matrix #epoint { font-size: 24px; }
+        #matrix .cls-54, #matrix .cls-55 { font-size: 24px; }
+        #matrix .cls-59, #matrix .cls-60 { font-size: 19px; }
+        #matrix .cls-57, #matrix .cls-58 { font-size: 17px; }
+        #matrix #epoint { font-size: 29px; }
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
@@ -432,50 +432,54 @@
                     </g>
                     <g id="points-basic">
                          <!-- Circles and Text Points -->
-                        <circle class="cls-10 big-circle" cx="79.2" cy="297" r="33.5"></circle>
+                        <circle class="cls-10 big-circle" cx="79.2" cy="297" r="31.5"></circle>
                         <text class="cls-54 matrix-value-point" id="apoint" transform="translate(79.2 299)"></text>
-                        <circle class="cls-10 big-circle" cx="333.7" cy="42" r="33.5"></circle>
-                        <text class="cls-54 matrix-value-point" id="bpoint" transform="translate(333.7 42)"></text>
-                        <circle class="cls-19 big-circle" cx="587.13" cy="297" r="33.5"></circle>
+                        <circle class="cls-10 big-circle" cx="334" cy="42" r="31.5"></circle>
+                        <text class="cls-54 matrix-value-point" id="bpoint" transform="translate(334 42)"></text>
+                        <circle class="cls-19 big-circle" cx="587.13" cy="297" r="31.5"></circle>
                         <text class="cls-54 matrix-value-point" id="cpoint" transform="translate(587.4 299)"></text>
-                        <circle class="cls-19 big-circle" cx="332.7" cy="554" r="33.5"></circle>
-                        <text class="cls-54 matrix-value-point" id="dpoint" transform="translate(332.7 557)"></text>
-                        <circle class="cls-25 big-circle" cx="334" cy="297" r="33.5"></circle>
-                        <text class="cls-55 clss matrix-value-point" id="epoint" transform="translate(334 299)"></text>
-                        <circle class="cls-24 big-circle" cx="151" cy="114.22" r="33.5"></circle>
-                        <text class="cls-55 matrix-value-point" id="fpoint" transform="translate(151 115)"></text>
-                        <circle class="cls-24 big-circle" cx="515.1" cy="114.22" r="33.5"></circle>
-                        <text class="cls-55 matrix-value-point" id="gpoint" transform="translate(515.1 115)"></text>
-                        <circle class="cls-24 big-circle" cx="514.1" cy="479.62" r="33.5"></circle>
-                        <text class="cls-55 matrix-value-point" id="ipoint" transform="translate(514.1 481)"></text>
-                        <circle class="cls-24 big-circle" cx="153" cy="479.62" r="33.5"></circle>
-                        <text class="cls-55 matrix-value-point" id="hpoint" transform="translate(153 481)"></text>
+                        <circle class="cls-19 big-circle" cx="334" cy="551" r="31.5"></circle>
+                        <text class="cls-54 matrix-value-point" id="dpoint" transform="translate(334 553)"></text>
+                        <circle class="cls-25 big-circle" cx="334" cy="297" r="34.5"></circle>
+                        <text class="cls-55 clss matrix-value-point" id="epoint" transform="translate(334 287)"></text>
+                        <circle class="cls-24 big-circle" cx="153.5" cy="116.5" r="31.5"></circle>
+                        <text class="cls-55 matrix-value-point" id="fpoint" transform="translate(153.5 116.5)"></text>
+                        <circle class="cls-24 big-circle" cx="513.5" cy="116.5" r="31.5"></circle>
+                        <text class="cls-55 matrix-value-point" id="gpoint" transform="translate(513.5 116.5)"></text>
+                        <circle class="cls-24 big-circle" cx="513.5" cy="476.8" r="31.5"></circle>
+                        <text class="cls-55 matrix-value-point" id="ipoint" transform="translate(513.5 476.8)"></text>
+                        <circle class="cls-24 big-circle" cx="153.7" cy="476" r="31.5"></circle>
+                        <text class="cls-55 matrix-value-point" id="hpoint" transform="translate(153.7 476)"></text>
                         <circle class="cls-22 small-circle" cx="332.59" cy="466" r="21"></circle>
                         <text class="cls-57 matrix-value-point" id="jpoint" transform="translate(332.69 466)"></text>
                         <circle class="cls-22 small-circle" cx="500" cy="297" r="21"></circle>
                         <text class="cls-57 matrix-value-point" id="npoint" transform="translate(500 299)"></text>
-                        <circle class="cls-21 small-circle" cx="418.18" cy="380.69" r="21"></circle>
+                        <circle class="cls-34 small-circle" cx="418.18" cy="380.69" r="21"></circle>
                         <text class="cls-58 matrix-value-point" id="lpoint" transform="translate(418.18 382)"></text>
                         <circle class="cls-21 small-circle" cx="375" cy="424" r="21"></circle>
                         <text class="cls-58 matrix-value-point" id="kpoint" transform="translate(375 426)"></text>
+                        <!-- Heart symbol next to kpoint -->
+                        <text style="font-size: 21px; fill: #ff6b6b; font-weight: bold;" transform="translate(352 401)">♥</text>
                         <circle class="cls-21 small-circle" cx="461" cy="338" r="21"></circle>
                         <text class="cls-58 matrix-value-point" id="mpoint" transform="translate(461 338)"></text>
+                        <!-- Dollar symbol next to mpoint -->
+                        <text style="font-size: 16px; fill: #10b981; font-weight: bold;" transform="translate(438 316)">$</text>
                         <circle class="cls-15 small-circle" cx="165.61" cy="297" r="21"></circle>
                         <text class="cls-58 matrix-value-point" id="spoint" transform="translate(165.61 299)"></text>
-                        <circle class="cls-15 small-circle" cx="333.7" cy="129" r="21"></circle>
-                        <text class="cls-58 matrix-value-point" id="tpoint" transform="translate(333.7 131)"></text>
+                        <circle class="cls-15 small-circle" cx="334" cy="129" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="tpoint" transform="translate(334 131)"></text>
                         <circle class="cls-13 medium-circle" cx="127.11" cy="297" r="24"></circle>
                         <text class="cls-59 matrix-value-point" id="opoint" transform="translate(127.11 299)"></text>
-                        <circle class="cls-13 medium-circle" cx="333.7" cy="90.62" r="24"></circle>
-                        <text class="cls-59 matrix-value-point" id="ppoint" transform="translate(333.7 92)"></text>
-                        <circle class="cls-23 medium-circle" cx="333" cy="505" r="24"></circle>
+                        <circle class="cls-13 medium-circle" cx="334" cy="90.62" r="24"></circle>
+                        <text class="cls-59 matrix-value-point" id="ppoint" transform="translate(334 92)"></text>
+                        <circle class="cls-44 medium-circle" cx="333" cy="505" r="24"></circle>
                         <text class="cls-60 matrix-value-point" id="rpoint" transform="translate(333 505)"></text>
-                        <circle class="cls-23 medium-circle" cx="538.5" cy="297" r="24"></circle>
+                        <circle class="cls-44 medium-circle" cx="538.5" cy="297" r="24"></circle>
                         <text class="cls-60 matrix-value-point" id="qpoint" transform="translate(538.5 299)"></text>
                         <circle class="cls-26 small-circle" cx="245.26" cy="297" r="21"></circle>
                         <text class="cls-58 matrix-value-point" id="wpoint" transform="translate(245.26 299)"></text>
-                        <circle class="cls-26 small-circle" cx="333.7" cy="203" r="21"></circle>
-                        <text class="cls-58 matrix-value-point" id="xpoint" transform="translate(333.7 204)"></text>
+                        <circle class="cls-26 small-circle" cx="334" cy="203" r="21"></circle>
+                        <text class="cls-58 matrix-value-point" id="xpoint" transform="translate(334 204)"></text>
                         <circle class="cls-21 small-circle" cx="212" cy="175.93" r="21"></circle>
                         <text class="cls-58 matrix-value-point" id="f2point" transform="translate(212 179)"></text>
                         <circle class="cls-23 medium-circle" cx="184.71" cy="149.53" r="24"></circle>
@@ -492,10 +496,10 @@
                         <text class="cls-58 matrix-value-point" id="h2point" transform="translate(215 419)"></text>
                         <circle class="cls-23 medium-circle" cx="188.71" cy="446.7" r="24"></circle>
                         <text class="cls-60 matrix-value-point" id="h1point" transform="translate(188.71 447)"></text>
-                        <circle class="cls-21 small-circle" cx="420.54" cy="297" r="21"></circle>
-                        <text class="cls-58 matrix-value-point" id="vpoint" transform="translate(420.54 299)"></text>
-                        <circle class="cls-23 medium-circle" cx="382" cy="297" r="24"></circle>
-                        <text class="cls-60 matrix-value-point" id="upoint" transform="translate(382 299)"></text>
+                        <circle class="cls-44 small-circle" cx="382" cy="297" r="16"></circle>
+                        <text class="cls-58 matrix-value-point" id="vpoint" transform="translate(382 299)"></text>
+                        <circle class="cls-23 medium-circle" cx="334" cy="316" r="14"></circle>
+                        <text class="cls-60 matrix-value-point" id="upoint" transform="translate(334 317)"></text>
                     </g>
                     <g id="points-years">
                          <!-- All age text elements -->
