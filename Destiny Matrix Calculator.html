@@ -20,7 +20,7 @@
             background-color: #1a1a2e;
             color: #e0e0e0;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             min-height: 100vh;
         }
 
@@ -28,7 +28,7 @@
         .header-controls-wrapper {
             width: 95%;
             max-width: 750px;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
         }
         @media (min-width: 769px) {
              .header-controls-wrapper {
@@ -43,7 +43,7 @@
         }
 
         .controls {
-            padding: 15px 25px;
+            padding: 10px 15px;
             background-color: #2a2a3e;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
@@ -93,8 +93,8 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
-            align-items: flex-start;
-            gap: 30px;
+            align-items: flex;
+            gap: 15px;
             width: 95%;
             max-width: 1100px;
             margin-top: 0;
@@ -108,10 +108,10 @@
             flex: 2;
             flex-basis: clamp(400px, 70%, 750px);
             min-width: 350px;
-            max-width: 810px;
+            max-width: 830px;
             background-color: #0d0d1a;
             border-radius: 10px;
-            padding: 40px 8px;
+            padding: 40px 6px;
             box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(0, 0, 0, 0.3);
             position: relative;
             display: flex;
@@ -130,26 +130,72 @@
             max-width: 220px;
             background-color: #2a2a3e;
             border-radius: 8px;
-            padding: 35px 20px;
+            padding: 25px 15px 5px 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 5px;
         }
 
         .sidebar-section { display: flex; flex-direction: column; gap: 10px; }
         .sidebar-item { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .sidebar-title { font-size: 1.1em; font-weight: bold; color: #e0e0e0; margin-bottom: 5px; text-align: center; }
+        .sidebar-title { font-size: 1em; font-weight: bold; color: #e0e0e0; margin-bottom: 3px; text-align: center; }
         .sidebar-label { font-size: 0.95em; color: #b0b0c0; flex-grow: 1; text-align: left; }
 .sidebar-label.center { text-align: center; }
-        .sidebar-value-box { background-color: #1a1a2e; color: #f0f0f0; border: 1px solid #4a4a5e; border-radius: 4px; padding: 6px 7px; font-weight: bold; font-size: 1.1em; min-width: 45px; text-align: center; margin-left: 10px; cursor: default; /* Indicate it's hoverable */ }
-        .sidebar-value-box.large { font-size: 1.8em; padding: 7px 20px; background-color: #eab308; color: #1a1a2e; border-color: #eab308; margin-bottom: 5px; margin-left: 0; }
+        .sidebar-value-box { background-color: #1a1a2e; color: #f0f0f0; border: 1px solid #4a4a5e; border-radius: 4px; padding: 4px 1px; font-weight: bold; font-size: 1.1em; min-width: 45px; text-align: center; margin-left: 10px; cursor: default; /* Indicate it's hoverable */ }
+        .sidebar-value-box.large { font-size: 1.6em; padding: 1px 10px; background-color: #eab308; color: #1a1a2e; border-color: #eab308; margin-bottom: 5px; margin-left: 0; }
 
         .purpose-group, .social-group { gap: 12px; }
-        .purpose-item, .social-item { margin-bottom: -5px; }
+        .purpose-item, .social-item { margin-bottom: -15px; }
 
         .sidebar-sublabel { font-size: 0.85em; color: #808090; text-align: center; }
         hr.sidebar-divider { border: none; border-top: 1px solid #4a4a5e; margin: 10px 0; }
+
+        /* Chakras Section Styles */
+        .chakras-table {
+            display: grid;
+            grid-template-columns: 24px 1fr 1fr 1fr;
+            gap: 5px 12px;
+            font-size: 1em;
+        }
+        .chakras-header {
+            display: contents;
+        }
+        .chakras-header-cell {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #b0b0c0;
+            text-align: center;
+            padding: 4px 2px;
+        }
+        .chakras-row {
+            display: contents;
+        }
+        .chakras-circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin: 4px auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .chakras-circle.crown { background-color: #9333ea; }
+        .chakras-circle.third-eye { background-color: #4f46e5; }
+        .chakras-circle.throat { background-color: #0ea5e9; }
+        .chakras-circle.heart { background-color: #10b981; }
+        .chakras-circle.solar-plexus { background-color: #f59e0b; }
+        .chakras-circle.sacral { background-color: #f97316; }
+        .chakras-circle.root { background-color: #dc2626; }
+        .chakras-value {
+            background-color: #1a1a2e;
+            color: #f0f0f0;
+            border: 1px solid #4a4a5e;
+            border-radius: 3px;
+            padding: 6px 8px;
+            font-weight: bold;
+            font-size: 0.95em;
+            text-align: center;
+            cursor: default;
+        }
 
 
         /* --- SVG Specific Styling --- */
@@ -359,7 +405,7 @@
             <!-- Matrix Container -->
             <div id="matrixContainer" class="matrix-container">
                 <!-- ****** START OF EMBEDDED SVG ****** -->
-                <svg viewBox="0 0 680 600" id="matrix">
+                <svg viewBox="10 6 645 580" id="matrix">
                    <!-- ... (Entire SVG code remains exactly the same) ... -->
                     <g id="matrix-frame">
                         <rect class="cls-3" x="163.63" y="126.14" width="340.16" height="340.16"></rect>
@@ -453,13 +499,13 @@
                     </g>
                     <g id="points-years">
                          <!-- All age text elements -->
-                        <text class="cls-28" transform="translate(28 290)">0<tspan x="-10" y="10">years</tspan><tspan x="-4" y="20">old</tspan></text>
+                        <text class="cls-28" transform="translate(34 290)">0<tspan x="-10" y="10">years</tspan><tspan x="-4" y="20">old</tspan></text>
                         <text class="cls-28" transform="translate(110 65)">10<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
-                        <text class="cls-28" transform="translate(337 -22)">20<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
+                        <text class="cls-28" transform="translate(337 -17)">20<tspan x="-2" y="15">years old</tspan></text>
                         <text class="cls-28" transform="translate(560 65)">30<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
-                        <text class="cls-28" transform="translate(655 286)">40<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
+                        <text class="cls-28" transform="translate(650 286)">40<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
                         <text class="cls-28" transform="translate(555 510)">50<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
-                        <text class="cls-28" transform="translate(335 600)">60<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
+                        <text class="cls-28" transform="translate(335 600)">60<tspan x="-2" y="10">years old</tspan></text>
                         <text class="cls-28" transform="translate(110 510)">70<tspan x="-8" y="10">years</tspan><tspan x="-2" y="20">old</tspan></text>
                         <text class="cls-29" transform="translate(105.49 200.76)">5 y.o.</text>
                         <text class="cls-29" transform="translate(235.22 63.42)">15 y.o.</text>
@@ -626,6 +672,63 @@
                     </div>
                     <div class="sidebar-sublabel social-sublabel">After 40</div> <!-- Moved sublabel -->
                  </div>
+
+                 <!-- Divider -->
+                 <hr class="sidebar-divider">
+
+                 <!-- Section 4: Chakras -->
+                 <div class="sidebar-section chakras-section">
+                     <div class="chakras-table">
+                             <div class="chakras-header">
+                                 <div class="chakras-header-cell"></div>
+                                 <div class="chakras-header-cell">Heaven</div>
+                                 <div class="chakras-header-cell">Man</div>
+                                 <div class="chakras-header-cell">Earth</div>
+                             </div>
+                             <div class="chakras-row">
+                                 <div class="chakras-circle crown"></div>
+                                 <div class="chakras-value" id="chakra-crown-energy">--</div>
+                                 <div class="chakras-value" id="chakra-crown-emotions">--</div>
+                                 <div class="chakras-value" id="chakra-crown-physics">--</div>
+                             </div>
+                             <div class="chakras-row">
+                                 <div class="chakras-circle third-eye"></div>
+                                 <div class="chakras-value" id="chakra-thirdeye-energy">--</div>
+                                 <div class="chakras-value" id="chakra-thirdeye-emotions">--</div>
+                                 <div class="chakras-value" id="chakra-thirdeye-physics">--</div>
+                             </div>
+                             <div class="chakras-row">
+                                 <div class="chakras-circle throat"></div>
+                                 <div class="chakras-value" id="chakra-throat-energy">--</div>
+                                 <div class="chakras-value" id="chakra-throat-emotions">--</div>
+                                 <div class="chakras-value" id="chakra-throat-physics">--</div>
+                             </div>
+                             <div class="chakras-row">
+                                 <div class="chakras-circle heart"></div>
+                                 <div class="chakras-value" id="chakra-heart-energy">--</div>
+                                 <div class="chakras-value" id="chakra-heart-emotions">--</div>
+                                 <div class="chakras-value" id="chakra-heart-physics">--</div>
+                             </div>
+                             <div class="chakras-row">
+                                 <div class="chakras-circle solar-plexus"></div>
+                                 <div class="chakras-value" id="chakra-solarplexus-energy">--</div>
+                                 <div class="chakras-value" id="chakra-solarplexus-emotions">--</div>
+                                 <div class="chakras-value" id="chakra-solarplexus-physics">--</div>
+                             </div>
+                             <div class="chakras-row">
+                                 <div class="chakras-circle sacral"></div>
+                                 <div class="chakras-value" id="chakra-sacral-energy">--</div>
+                                 <div class="chakras-value" id="chakra-sacral-emotions">--</div>
+                                 <div class="chakras-value" id="chakra-sacral-physics">--</div>
+                             </div>
+                             <div class="chakras-row">
+                                 <div class="chakras-circle root"></div>
+                                 <div class="chakras-value" id="chakra-root-energy">--</div>
+                                 <div class="chakras-value" id="chakra-root-emotions">--</div>
+                                 <div class="chakras-value" id="chakra-root-physics">--</div>
+                             </div>
+                     </div>
+                 </div>
             </div>
 
         
@@ -699,6 +802,31 @@
                 purpose: valuePurpose, social: valueSocial, generalpurpose: valueGeneralPurpose
             };
 
+            // --- Chakras Elements ---
+            const chakrasValueElements = {
+                crownPhysics: document.getElementById('chakra-crown-physics'),
+                crownEnergy: document.getElementById('chakra-crown-energy'),
+                crownEmotions: document.getElementById('chakra-crown-emotions'),
+                thirdeyePhysics: document.getElementById('chakra-thirdeye-physics'),
+                thirdeyeEnergy: document.getElementById('chakra-thirdeye-energy'),
+                thirdeyeEmotions: document.getElementById('chakra-thirdeye-emotions'),
+                throatPhysics: document.getElementById('chakra-throat-physics'),
+                throatEnergy: document.getElementById('chakra-throat-energy'),
+                throatEmotions: document.getElementById('chakra-throat-emotions'),
+                heartPhysics: document.getElementById('chakra-heart-physics'),
+                heartEnergy: document.getElementById('chakra-heart-energy'),
+                heartEmotions: document.getElementById('chakra-heart-emotions'),
+                solarplexusPhysics: document.getElementById('chakra-solarplexus-physics'),
+                solarplexusEnergy: document.getElementById('chakra-solarplexus-energy'),
+                solarplexusEmotions: document.getElementById('chakra-solarplexus-emotions'),
+                sacralPhysics: document.getElementById('chakra-sacral-physics'),
+                sacralEnergy: document.getElementById('chakra-sacral-energy'),
+                sacralEmotions: document.getElementById('chakra-sacral-emotions'),
+                rootPhysics: document.getElementById('chakra-root-physics'),
+                rootEnergy: document.getElementById('chakra-root-energy'),
+                rootEmotions: document.getElementById('chakra-root-emotions')
+            };
+
             // --- Calculation Helper Functions --- (Unchanged)
             function reduceTo22(num) {
                 let n = Math.abs(parseInt(num)); if (isNaN(n)) return NaN;
@@ -746,7 +874,45 @@
                 points.sky = reduceTo22(points.bpoint + points.dpoint); points.earth = reduceTo22(points.apoint + points.cpoint);
                 points.male = reduceTo22(points.fpoint + points.ipoint); points.female = reduceTo22(points.gpoint + points.hpoint);
                 points.purpose = reduceTo22(points.sky + points.earth); points.social = reduceTo22(points.male + points.female);
-                points.generalpurpose = reduceTo22(points.purpose + points.social); return points;
+                points.generalpurpose = reduceTo22(points.purpose + points.social);
+
+                // --- Chakras Calculations ---
+                // Crown: Physics = apoint, Energy = bpoint
+                points.crownPhysics = points.apoint;
+                points.crownEnergy = points.bpoint;
+                points.crownEmotions = reduceTo22(points.crownPhysics + points.crownEnergy);
+
+                // Third Eye: Physics = opoint, Energy = ppoint
+                points.thirdeyePhysics = points.opoint;
+                points.thirdeyeEnergy = points.ppoint;
+                points.thirdeyeEmotions = reduceTo22(points.thirdeyePhysics + points.thirdeyeEnergy);
+
+                // Throat: Physics = spoint, Energy = tpoint
+                points.throatPhysics = points.spoint;
+                points.throatEnergy = points.tpoint;
+                points.throatEmotions = reduceTo22(points.throatPhysics + points.throatEnergy);
+
+                // Heart: Physics = wpoint, Energy = xpoint
+                points.heartPhysics = points.wpoint;
+                points.heartEnergy = points.xpoint;
+                points.heartEmotions = reduceTo22(points.heartPhysics + points.heartEnergy);
+
+                // Solar Plexus: Both Physics and Energy = epoint
+                points.solarplexusPhysics = points.epoint;
+                points.solarplexusEnergy = points.epoint;
+                points.solarplexusEmotions = reduceTo22(points.solarplexusPhysics + points.solarplexusEnergy);
+
+                // Sacral: Physics = npoint, Energy = jpoint
+                points.sacralPhysics = points.npoint;
+                points.sacralEnergy = points.jpoint;
+                points.sacralEmotions = reduceTo22(points.sacralPhysics + points.sacralEnergy);
+
+                // Root: Physics = cpoint, Energy = dpoint
+                points.rootPhysics = points.cpoint;
+                points.rootEnergy = points.dpoint;
+                points.rootEmotions = reduceTo22(points.rootPhysics + points.rootEnergy);
+
+                return points;
             }
 
             // --- Clear Display Function --- (Unchanged)
@@ -759,6 +925,9 @@
                 } else { console.warn("SVG element not found for clearing."); }
                 for (const key in sidebarValueElements) {
                     if (sidebarValueElements[key]) { sidebarValueElements[key].textContent = '--'; }
+                }
+                for (const key in chakrasValueElements) {
+                    if (chakrasValueElements[key]) { chakrasValueElements[key].textContent = '--'; }
                 }
                 if(sidebarContainer) sidebarContainer.style.visibility = 'visible';
             }
@@ -782,6 +951,14 @@
                 }
                 for (const key in sidebarValueElements) {
                      const element = sidebarValueElements[key];
+                     if (element) {
+                          const value = points[key];
+                          if (value !== undefined && value !== null && !isNaN(value)) { element.textContent = value; }
+                          else { element.textContent = '?'; }
+                     }
+                }
+                for (const key in chakrasValueElements) {
+                     const element = chakrasValueElements[key];
                      if (element) {
                           const value = points[key];
                           if (value !== undefined && value !== null && !isNaN(value)) { element.textContent = value; }
@@ -834,7 +1011,7 @@
             // --- NEW: Function to Apply Custom Tooltip Listeners ---
             function applyCustomTooltips() {
                  // Select all elements that should have tooltips
-                 const tooltipTargets = document.querySelectorAll('.matrix-value-point, .sidebar-value-box');
+                 const tooltipTargets = document.querySelectorAll('.matrix-value-point, .sidebar-value-box, .chakras-value');
 
                  tooltipTargets.forEach(target => {
                      target.addEventListener('mouseover', handleTooltipMouseOver);
@@ -865,6 +1042,8 @@
                     return Promise.reject("SVG element not found");
                 }
             }
+
+
 
             // --- Function to handle the calculation process --- (Unchanged)
             function handleCalculation() {
@@ -1016,7 +1195,7 @@
         }); // End DOMContentLoaded
     </script>
     <!-- END OF EMBEDDED JAVASCRIPT -->
-    <footer style="width:95%;max-width:1100px;background:#181a28;padding:20px 0 16px 0;margin:38px 0 0 0;">
+    <footer style="width:95%;max-width:1100px;background:#191b2f;padding:5px 0 0px 0;margin:20px 0 0 0; border: 1px solid #232339;border-radius:8px;">
     <div class="header-controls-wrapper" style="text-align:left;padding-left:20px;padding-right:20px;">
         <a href="https://glavans.com/apps/destiny-matrix-research-tool.html" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:10px 18px;background:#23263a;color:#a78bfa;font-weight:bold;border-radius:8px;text-decoration:none;font-size:1.07em;box-shadow:0 2px 8px rgba(167,139,250,0.10);margin-top:8px;margin-right:18px;">See Destiny Matrix Research Tool</a>
         <a href="https://glavans.com/apps/core_birthday_lister.html" target="_blank" style="display:inline-block;padding:10px 18px;background:#23263a;color:#14b8a6;font-weight:bold;border-radius:8px;text-decoration:none;font-size:1.07em;box-shadow:0 2px 8px rgba(20,184,166,0.10);margin-top:8px;">See Core Number On Birthdays</a>
