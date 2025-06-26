@@ -1,7 +1,8 @@
+# Destiny Matrix Calculator
+
 Simple html + css + javascript one file webapp for calculating Destiny Matrix charts. That means you can _simply_ download the html file and run it in your browser.
 
 Link: [Destiny Matrix Calculator - Live Preview](https://glavans.com/apps/destiny-matrix-calc.html)
-Also check out my [Destiny Matrix Research Tool](https://github.com/samwega/destiny-matrix-research-tool)
 
 It encodes the date in the URL so it can be linked or shared.
 
@@ -16,14 +17,13 @@ Hovering over any of the numbers displays the name of the respective tarot card.
 
 This was all coded with AI Studio's Gemini 2.5 and functionality was later added in Windsurf with GPT 4.1.
 
-I've also included a standalone little app, the Core Birthday Lister—I was intrigued by how the Core number during our birthday changes and repeats on a 9 year cycle, so I made this little calculator. You can check out a live version here [Core Number On Every Birthday](https://glavans.com/apps/core_birthday_lister.html).
+# Core Number On Birthday Lister
+
+I was intrigued by how the Core number during our birthday changes and repeats on a 9 year cycle, so I made this little calculator. You can check out a live version here [Core Number On Every Birthday](https://glavans.com/apps/core_birthday_lister.html).
 
 ![Core Number On Every Birthday](https://github.com/user-attachments/assets/ca0009c5-2a71-4cca-94fd-b1e67b8f73fa)
 
-
-Feel free to request additional functionality.
-
----
+# Destiny Matrix Research Tool
 
 Simple html + css + javascript one file webapp for calculating certain Destiny Matrix chart patterns over arbitrary periods. That means you can _simply_ download the html file and run it in your browser.
 
@@ -39,6 +39,6 @@ Also check my [Destiny Matrix Calculator](https://github.com/samwega/destiny-mat
 
 This was all vibe coded in Windsurf with GPT 4.1.
 
-Feel free to request additional functionality.
-
 ![Destiny Matrix Research Tool](https://i.imgur.com/Hqn5Xsg.png)
+
+Feel free to request additional functionality.
