@@ -1064,7 +1064,7 @@
                 const coreBdayLink = document.getElementById('coreBdayLink');
 
                 if (coreBdayLink && day && month && year) {
-                    const dateString = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    const dateString = `${String(year).padStart(4, '0')}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                     coreBdayLink.href = `core_birthday_lister.html?date=${dateString}`;
                 }
             }
@@ -1080,7 +1080,7 @@
                     displayMatrix(matrixValues);
 
                     // Update URL with the current date
-                    const newUrl = `${window.location.pathname}?date=${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    const newUrl = `${window.location.pathname}?date=${String(year).padStart(4, '0')}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                     window.history.pushState({ path: newUrl }, '', newUrl);
 
                     // Update the link to the Core Birthday Lister
@@ -1182,8 +1182,7 @@
                     const day = parseInt(parts[2], 10);
 
                     if (!isNaN(day) && !isNaN(month) && !isNaN(year) &&
-                        month >= 1 && month <= 12 && day >= 1 && day <= 31 &&
-                        String(year).length === 4) {
+                        month >= 1 && month <= 12 && day >= 1 && day <= 31) { // Removed year length check
 
                         dayInput.value = day;
                         monthInput.value = month;
