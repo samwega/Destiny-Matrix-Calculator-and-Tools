@@ -111,109 +111,128 @@
         </div>
     </div>
     <script>
-// --- Calculation Logic (from Destiny Matrix Calculator) ---
-function sumDigits(n) {
-    n = Math.abs(Number(n));
-    let sum = 0;
-    while (n > 0) { sum += n % 10; n = Math.floor(n / 10); }
-    return sum;
-}
-function reduceTo22(n) {
-    n = Math.abs(Number(n));
-    while (n > 22) {
-        n = sumDigits(n);
-        if (n === 0) break;
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Calculation Logic (from Destiny Matrix Calculator) ---
+    function sumDigits(n) {
+        n = Math.abs(Number(n));
+        let sum = 0;
+        while (n > 0) { sum += n % 10; n = Math.floor(n / 10); }
+        return sum;
     }
-    return n;
-}
-function calculateMatrix(day, month, year) {
-    const points = {};
-    day = Number(day); month = Number(month); year = Number(year);
-    const yearSum = sumDigits(year);
-    points.apoint = reduceTo22(day);
-    points.cpoint = reduceTo22(yearSum);
-    points.dpoint = reduceTo22(points.apoint + month + points.cpoint);
-    points.epoint = reduceTo22(points.apoint + month + points.cpoint + points.dpoint);
-    // Only epoint needed for this app
-    return points;
-}
+    function reduceTo22(n) {
+        n = Math.abs(Number(n));
+        while (n > 22) {
+            n = sumDigits(n);
+            if (n === 0) break;
+        }
+        return n;
+    }
+    function calculateMatrix(day, month, year) {
+        const points = {};
+        day = Number(day); month = Number(month); year = Number(year);
+        const yearSum = sumDigits(year);
+        points.apoint = reduceTo22(day);
+        points.cpoint = reduceTo22(yearSum);
+        points.dpoint = reduceTo22(points.apoint + month + points.cpoint);
+        points.epoint = reduceTo22(points.apoint + month + points.cpoint + points.dpoint);
+        // Only epoint needed for this app
+        return points;
+    }
 
-function getEpointsForYears(startDate, numYears) {
-    const results = [];
-    let d = new Date(startDate.getTime());
-    for (let i = 0; i < numYears; i++) {
-        const year = d.getFullYear();
-        const month = d.getMonth() + 1; // JS months 0-indexed
-        const day = d.getDate();
-        const pts = calculateMatrix(day, month, year);
-        results.push({ year, epoint: pts.epoint });
-        d.setFullYear(year + 1);
+    function getEpointsForYears(startDate, numYears) {
+        const results = [];
+        let d = new Date(startDate.getTime());
+        for (let i = 0; i < numYears; i++) {
+            const year = d.getFullYear();
+            const month = d.getMonth() + 1; // JS months 0-indexed
+            const day = d.getDate();
+            const pts = calculateMatrix(day, month, year);
+            results.push({ year, epoint: pts.epoint });
+            d.setFullYear(year + 1);
+        }
+        return results;
     }
-    return results;
-}
 
-function renderTable(epointArr, highlightYear) {
-    const cols = 9;
-    const rows = 9;
-    // Calculate the repeating epoint (Core Number) sequence (first 9)
-    const coreNumbers = epointArr.slice(0, rows).map(e => e.epoint);
-    let html = '<table><tr>';
-    html += '<th>Core #</th>';
-    for (let c = 0; c < cols; c++) {
-        html += `<th>Year</th>`;
-    }
-    html += '</tr>';
-    for (let r = 0; r < rows; r++) {
-        html += '<tr>';
-        // Core Number column (repeats every 9 years)
-        html += `<td style="color:#9B8D4F;font-weight:bold;">${coreNumbers[r]}</td>`;
+    function renderTable(epointArr, highlightYear) {
+        const cols = 9;
+        const rows = 9;
+        // Calculate the repeating epoint (Core Number) sequence (first 9)
+        const coreNumbers = epointArr.slice(0, rows).map(e => e.epoint);
+        let html = '<table><tr>';
+        html += '<th>Core #</th>';
         for (let c = 0; c < cols; c++) {
-            const idx = c * rows + r;
-            if (idx < epointArr.length) {
-                const year = epointArr[idx].year;
-                const isCurrent = year === highlightYear;
-                html += `<td${isCurrent ? ' style="background:#b91c1c;color:#fff;font-weight:bold;"' : ''}>${year}</td>`;
-            } else {
-                html += '<td></td>';
-            }
+            html += `<th>Year</th>`;
         }
         html += '</tr>';
-    }
-    html += '</table>';
-    return html;
-}
-
-function runCalculation() {
-    const dateStr = document.getElementById('birthdate').value;
-    if (!dateStr) {
-        document.getElementById('tableContainer').innerHTML = '<p style="color:#eab308;">Please enter your date of birth.</p>';
-        return;
-    }
-    const date = new Date(dateStr);
-    if (isNaN(date.getTime())) {
-        document.getElementById('tableContainer').innerHTML = '<p style="color:#eab308;">Invalid date format.</p>';
-        return;
-    }
-
-    const today = new Date();
-    let highlightYear = today.getFullYear();
-    const birthMonth = date.getMonth();
-    const birthDay = date.getDate();
-    const currentMonth = today.getMonth();
-    const currentDay = today.getDate();
-
-    if (currentMonth < birthMonth || (currentMonth === birthMonth && currentDay < birthDay)) {
-        highlightYear--;
+        for (let r = 0; r < rows; r++) {
+            html += '<tr>';
+            // Core Number column (repeats every 9 years)
+            html += `<td style="color:#9B8D4F;font-weight:bold;">${coreNumbers[r]}</td>`;
+            for (let c = 0; c < cols; c++) {
+                const idx = c * rows + r;
+                if (idx < epointArr.length) {
+                    const year = epointArr[idx].year;
+                    const isCurrent = year === highlightYear;
+                    html += `<td${isCurrent ? ' style="background:#b91c1c;color:#fff;font-weight:bold;"' : ''}>${year}</td>`;
+                } else {
+                    html += '<td></td>';
+                }
+            }
+            html += '</tr>';
+        }
+        html += '</table>';
+        return html;
     }
 
-    const epoints = getEpointsForYears(date, 81);
-    document.getElementById('tableContainer').innerHTML = renderTable(epoints, highlightYear);
-}
+    function runCalculation() {
+        const dateStr = document.getElementById('birthdate').value;
+        if (!dateStr) {
+            document.getElementById('tableContainer').innerHTML = '<p style="color:#eab308;">Please enter your date of birth.</p>';
+            return;
+        }
+        const date = new Date(dateStr);
+        if (isNaN(date.getTime())) {
+            document.getElementById('tableContainer').innerHTML = '<p style="color:#eab308;">Invalid date format.</p>';
+            return;
+        }
 
-document.getElementById('calcBtn').addEventListener('click', runCalculation);
-document.getElementById('birthdate').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-        runCalculation();
+        // Update URL with the current date
+        const newUrl = `${window.location.pathname}?date=${dateStr}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+
+        const today = new Date();
+        let highlightYear = today.getFullYear();
+        const birthMonth = date.getMonth();
+        const birthDay = date.getDate();
+        const currentMonth = today.getMonth();
+        const currentDay = today.getDate();
+
+        if (currentMonth < birthMonth || (currentMonth === birthMonth && currentDay < birthDay)) {
+            highlightYear--;
+        }
+
+        const epoints = getEpointsForYears(date, 81);
+        document.getElementById('tableContainer').innerHTML = renderTable(epoints, highlightYear);
+    }
+
+    document.getElementById('calcBtn').addEventListener('click', runCalculation);
+    document.getElementById('birthdate').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            runCalculation();
+        }
+    });
+
+    // --- Initial Load and Setup ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const dateFromUrl = urlParams.get('date');
+    const birthdateInput = document.getElementById('birthdate');
+
+    if (dateFromUrl) {
+        // Basic validation for YYYY-MM-DD format
+        if (/^\d{4}-\d{2}-\d{2}$/.test(dateFromUrl)) {
+            birthdateInput.value = dateFromUrl;
+            runCalculation(); // Automatically calculate if date is from URL
+        }
     }
 });
     </script>
