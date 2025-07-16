@@ -1056,7 +1056,20 @@
 
 
 
-            // --- Function to handle the calculation process --- (Unchanged)
+            // --- NEW: Function to update Core Birthday Lister link ---
+            function updateCoreBdayLink() {
+                const day = dayInput.value;
+                const month = monthInput.value;
+                const year = yearInput.value;
+                const coreBdayLink = document.getElementById('coreBdayLink');
+
+                if (coreBdayLink && day && month && year) {
+                    const dateString = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    coreBdayLink.href = `core_birthday_lister.html?date=${dateString}`;
+                }
+            }
+
+            // --- Function to handle the calculation process ---
             function handleCalculation() {
                 clearMatrixDisplay();
                  try {
@@ -1070,6 +1083,8 @@
                     const newUrl = `${window.location.pathname}?date=${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                     window.history.pushState({ path: newUrl }, '', newUrl);
 
+                    // Update the link to the Core Birthday Lister
+                    updateCoreBdayLink();
                  }
                  catch (error) {
                     console.error("Calculation Error:", error);
@@ -1209,7 +1224,7 @@
     <footer style="width:95%;max-width:1100px;background:#191b2f;padding:5px 0 0px 0;margin:20px 0 0 0; border: 1px solid #232339;border-radius:8px;">
     <div class="header-controls-wrapper" style="text-align:left;padding-left:20px;padding-right:20px;">
         <a href="https://glavans.com/apps/destiny-matrix-research-tool.html" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:10px 18px;background:#23263a;color:#a78bfa;font-weight:bold;border-radius:8px;text-decoration:none;font-size:1.07em;box-shadow:0 2px 8px rgba(167,139,250,0.10);margin-top:8px;margin-right:18px;">See Destiny Matrix Research Tool</a>
-        <a href="https://glavans.com/apps/core_birthday_lister.html" target="_blank" style="display:inline-block;padding:10px 18px;background:#23263a;color:#14b8a6;font-weight:bold;border-radius:8px;text-decoration:none;font-size:1.07em;box-shadow:0 2px 8px rgba(20,184,166,0.10);margin-top:8px;">See Core Number On Birthdays</a>
+        <a id="coreBdayLink" href="core_birthday_lister.html" target="_blank" style="display:inline-block;padding:10px 18px;background:#23263a;color:#14b8a6;font-weight:bold;border-radius:8px;text-decoration:none;font-size:1.07em;box-shadow:0 2px 8px rgba(20,184,166,0.10);margin-top:8px;">See Core Number On Birthdays</a>
     </div>
 </footer>
 </body>
