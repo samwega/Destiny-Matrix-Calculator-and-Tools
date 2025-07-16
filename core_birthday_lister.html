@@ -152,10 +152,9 @@ function getEpointsForYears(startDate, numYears) {
     return results;
 }
 
-function renderTable(epointArr) {
+function renderTable(epointArr, highlightYear) {
     const cols = 9;
     const rows = 9;
-    const currentYear = new Date().getFullYear();
     // Calculate the repeating epoint (Core Number) sequence (first 9)
     const coreNumbers = epointArr.slice(0, rows).map(e => e.epoint);
     let html = '<table><tr>';
@@ -172,7 +171,7 @@ function renderTable(epointArr) {
             const idx = c * rows + r;
             if (idx < epointArr.length) {
                 const year = epointArr[idx].year;
-                const isCurrent = year === currentYear;
+                const isCurrent = year === highlightYear;
                 html += `<td${isCurrent ? ' style="background:#b91c1c;color:#fff;font-weight:bold;"' : ''}>${year}</td>`;
             } else {
                 html += '<td></td>';
@@ -195,8 +194,20 @@ function runCalculation() {
         document.getElementById('tableContainer').innerHTML = '<p style="color:#eab308;">Invalid date format.</p>';
         return;
     }
+
+    const today = new Date();
+    let highlightYear = today.getFullYear();
+    const birthMonth = date.getMonth();
+    const birthDay = date.getDate();
+    const currentMonth = today.getMonth();
+    const currentDay = today.getDate();
+
+    if (currentMonth < birthMonth || (currentMonth === birthMonth && currentDay < birthDay)) {
+        highlightYear--;
+    }
+
     const epoints = getEpointsForYears(date, 81);
-    document.getElementById('tableContainer').innerHTML = renderTable(epoints);
+    document.getElementById('tableContainer').innerHTML = renderTable(epoints, highlightYear);
 }
 
 document.getElementById('calcBtn').addEventListener('click', runCalculation);
