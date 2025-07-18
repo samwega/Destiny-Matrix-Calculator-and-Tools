@@ -19,10 +19,10 @@
         color: #f2f6fa;
     }
     .container {
-        max-width: 95vw;
+        max-width: 1600px; /* Set a max-width */
         min-width: 320px;
         margin: 40px auto;
-        background: #232b3a;
+        background: #19212e;
         border-radius: 10px;
         box-shadow: 0 2px 16px #0008;
         padding: 32px;
@@ -179,7 +179,7 @@
     }
     .results {
         margin-top: 32px;
-        background: #20293b;
+        background: #151c28;
         padding: 20px;
         border-radius: 8px;
         min-height: 40px;
@@ -221,7 +221,7 @@
     color: #f2f6fa;
 }
 .block-counter {
-    background: #20293b;
+    background: #101520;
     color: #7bdfff;
     border: 1.5px solid #3197e8;
     border-radius: 8px;
@@ -270,7 +270,7 @@
 }
 
 .block-counter {
-    background: #20293b;
+    background: #121823;
     color: #7bdfff;
     border: 1.5px solid #3197e8;
     font-weight: 600;
@@ -446,7 +446,7 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #20293b;
+    background: #1b2131;
     color: #7bdfff;
     border: 2px solid #3197e8;
     box-sizing: border-box;
@@ -491,7 +491,7 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
 }
 .results {
     margin-top: 40px;
-    background: #20293b;
+    background: #121823;
     padding: 24px;
     border-radius: 12px;
     min-height: 40px;
@@ -503,7 +503,7 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     overflow-x: auto;
     width: 100%;
     box-sizing: border-box;
-    max-width: 900px;
+    /* Removed max-width: 900px; */
     margin-left: auto;
     margin-right: auto;
 }
@@ -596,113 +596,7 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     font-weight: bold !important;
 }
 </style>
-        <style>
-        .title-box {
-            background: linear-gradient(90deg,#7bdfff 60%,#3197e8 100%);
-            color: #181f2a;
-            font-size: 1.6rem;
-            font-weight: 700;
-            border-radius: 10px;
-            padding: 18px 0;
-            text-align: center;
-            margin-bottom: 6px;
-            letter-spacing: 1px;
-            box-shadow: 0 2px 10px #0002;
-        }
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #181f2a;
-            margin: 0;
-            padding: 0;
-            color: #f2f6fa;
-        }
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: #232b3a;
-            border-radius: 10px;
-            box-shadow: 0 2px 16px #0008;
-            padding: 32px;
-        }
-        h2 {
-            text-align: center;
-            color: #7bdfff;
-            margin-bottom: 36px;
-        }
-        .modern-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 22px 22px;
-            align-items: center;
-            justify-items: stretch;
-        }
-        .modern-input {
-            width: 140px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 1.25rem;
-            padding: 13px 18px;
-            border-radius: 7px;
-            border: 1.5px solid #222c3a;
-            background: #181f2a;
-            color: #f2f6fa;
-            box-sizing: border-box;
-            transition: border 0.2s;
-        }
-        .modern-input:focus {
-            outline: none;
-            border-color: #7bdfff;
-        }
-        .modern-counter {
-            width: 100%;
-            min-height: 48px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-radius: 7px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #20293b;
-            color: #7bdfff;
-            border: 1.5px solid #3197e8;
-            box-sizing: border-box;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-            padding: 0 18px;
-        }
-        .modern-counter.total {
-            color: #ffc46b;
-            border-color: #ffb347;
-            background: #2e2a23;
-        }
-        .modern-counter.overlap {
-            color: #9fff8a;
-            border-color: #46e85a;
-            background: #233a2b;
-        }
-        .modern-btn {
-            width: 100%;
-            font-size: 1.3rem;
-            font-weight: 700;
-            border-radius: 7px;
-            padding: 13px 0;
-            background: #f2f6fa;
-            color: #181f2a;
-            border: 2px solid #222c3a;
-            box-shadow: 0 2px 8px #0002;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-        }
-        .modern-btn:hover, .modern-btn:focus {
-            background: #7bdfff;
-            color: #181f2a;
-        }
-        @media (max-width: 800px) {
-            .container { max-width: 99vw; }
-            .modern-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+        
     <script>
         // --- Calculation Helper Functions ---
         function reduceTo22(num) {
@@ -922,7 +816,7 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
             const formatted = date.getFullYear().toString().padStart(4, '0') + '-' +
                 (date.getMonth() + 1).toString().padStart(2, '0') + '-' +
                 date.getDate().toString().padStart(2, '0');
-            tableRows += `<tr><td>${formatted}</td><td style='color:#33f2df;'>${points.epoint}</td><td>${points.purpose}</td><td>${points.social}</td><td>${points.generalpurpose}</td><td style='color:#ff9800; text-align:center;'>${points.bpoint}&rarr;${points.apoint}</td><td style='color:#ff9800; text-align:center;'>${points.ppoint}&rarr;${points.opoint}</td><td style='color:#ff9800; text-align:center;'>${points.tpoint}&rarr;${points.spoint}</td><td style='color:#2fff7a; text-align:center;'>${points.xpoint}&rarr;${points.wpoint}</td><td style='color:#ff9800; text-align:center;'>${points.jpoint}&rarr;${points.npoint}</td><td style='color:#ff9800; text-align:center;'>${points.dpoint}&rarr;${points.cpoint}</td></tr>`;
+            tableRows += `<tr><td style='text-align:center;'>${formatted}</td><td style='color:#FFD700; text-align:center;'>${points.epoint}</td><td style='text-align:center;'>${points.purpose}</td><td style='text-align:center;'>${points.social}</td><td style='text-align:center;'>${points.generalpurpose}</td><td style='color:#8A2BE2; text-align:center;'>${points.bpoint}&rarr;${points.apoint}</td><td style='color:#3c1bf9; text-align:center;'>${points.ppoint}&rarr;${points.opoint}</td><td style='color:#00BFFF; text-align:center;'>${points.tpoint}&rarr;${points.spoint}</td><td style='color:#2fff7a; text-align:center;'>${points.xpoint}&rarr;${points.wpoint}</td><td style='color:#FFA500; text-align:center;'>${points.jpoint}&rarr;${points.npoint}</td><td style='color:#FF0000; text-align:center;'>${points.dpoint}&rarr;${points.cpoint}</td></tr>`;
             resultCount++;
         }
     } else {
@@ -939,7 +833,7 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
                 } catch (err) {
                     points = { bpoint: '', apoint: '', ppoint: '', opoint: '', tpoint: '', spoint: '', xpoint: '', wpoint: '', jpoint: '', npoint: '', dpoint: '', cpoint: '' };
                 }
-                tableRows += `<tr><td>${date}</td><td style='color:#ffc46b;'>${core}</td><td>${purpose}</td><td>${social}</td><td>${destiny}</td><td style='color:#ff9800; text-align:center;'>${points.bpoint}&rarr;${points.apoint}</td><td style='color:#ff9800; text-align:center;'>${points.ppoint}&rarr;${points.opoint}</td><td style='color:#ff9800; text-align:center;'>${points.tpoint}&rarr;${points.spoint}</td><td style='color:#2fff7a; text-align:center;'>${points.xpoint}&rarr;${points.wpoint}</td><td style='color:#ff9800; text-align:center;'>${points.jpoint}&rarr;${points.npoint}</td><td style='color:#ff9800; text-align:center;'>${points.dpoint}&rarr;${points.cpoint}</td></tr>`;
+                                tableRows += `<tr><td style='text-align:center;'>${date}</td><td style='color:#FFD700; text-align:center;'>${core}</td><td style='text-align:center;'>${purpose}</td><td style='text-align:center;'>${social}</td><td style='text-align:center;'>${destiny}</td><td style='color:#8A2BE2; text-align:center;'>${points.bpoint}&rarr;${points.apoint}</td><td style='color:#3c1bf9; text-align:center;'>${points.ppoint}&rarr;${points.opoint}</td><td style='color:#00BFFF; text-align:center;'>${points.tpoint}&rarr;${points.spoint}</td><td style='color:#2fff7a; text-align:center;'>${points.xpoint}&rarr;${points.wpoint}</td><td style='color:#FFA500; text-align:center;'>${points.jpoint}&rarr;${points.npoint}</td><td style='color:#FF0000; text-align:center;'>${points.dpoint}&rarr;${points.cpoint}</td></tr>`;
                 resultCount++;
             } else {
                 // fallback: show as a single row
@@ -950,11 +844,11 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     }
     if (resultCount > 0) {
         resultsDiv.innerHTML = `<div style="overflow-x:auto"><table style="border-collapse:collapse;background:transparent;border:1.5px solid #38405a;"><thead><tr>
-            <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Date</th>
-            <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Core</th>
-            <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Purpose</th>
-            <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Social</th>
-            <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Destiny</th>
+            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Date</th>
+            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Core</th>
+            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Purpose</th>
+            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Social</th>
+            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Destiny</th>
             <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1.5px solid #38405a;'>Crown</th>
             <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1.5px solid #38405a;'>Ajna</th>
             <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1.5px solid #38405a;'>Throat</th>
@@ -1003,7 +897,7 @@ td:first-child {
 }
 
 tr:nth-child(even) {
-    background-color: #232f3e;
+    background-color: #1B2131;
 }
 
 tr:hover {
