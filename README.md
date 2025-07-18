@@ -39,6 +39,6 @@ Also check my [Destiny Matrix Calculator](https://github.com/samwega/destiny-mat
 
 This was all vibe coded in Windsurf with GPT 4.1.
 
-![Destiny Matrix Research Tool](https://i.imgur.com/Hqn5Xsg.png)
+![Destiny Matrix Research Tool](https://github.com/user-attachments/assets/3ca74530-dd52-473f-91a4-a541003b4c4d)
 
 Feel free to request additional functionality.
