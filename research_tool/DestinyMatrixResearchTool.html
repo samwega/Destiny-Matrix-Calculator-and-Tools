@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <!-- Destiny Matrix Date Range Calculator / Research Tool - v1.3 *** Made by Alexander Glavan, 2025 - https://glavans.com *** -->
+    <!-- Destiny Matrix Date Range Calculator / Research Tool - v1.5 *** Made by Alexander Glavan, 2025 - https://glavans.com *** -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -340,6 +340,7 @@ window.addEventListener('DOMContentLoaded', function() {
     <div class="container">
         <div class="button-row-flex">
     <button id="showYearsTableBtn" class="half-width-btn" style="background: #7bdfff; color: #181f2a; font-weight: bold;">Show Years Numerology</button>
+    <button id="showInstructionsBtn" class="half-width-btn" style="background: #7bdfff; color: #181f2a; font-weight: bold;">Show/Hide Instructions</button>
     <button id="launchDestinyMatrixBtn" class="half-width-btn" style="background: linear-gradient(90deg,#5fffca 60%,#2ec87d 100%); color: #181f2a; font-weight: bold; border: none; border-radius: 8px; box-shadow: 0 2px 10px #0002; padding: 0 18px; font-size: 1.05em;" onclick="window.open('https://glavans.com/apps/destiny-matrix-calc.html', '_blank'); return false;">Launch Destiny<br>Matrix Calculator</button>
 </div>
 <style>
@@ -358,6 +359,22 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 }
 </style>
+<div id="instructionsHolder" style="display:none; margin-top: 20px; padding: 20px; background: #1f2937; border-radius: 8px; color: #e3f3ff; font-size: 16px; line-height: 1.6;">
+    <h3 style="color: #7bdfff; text-align: center; margin-top: 0;">Basics</h3>
+    <p>In order to avoid abuse/crashes, some limits have been placed on the length of the periods. If any values have been inserted in the target fields, the period covered cannot exceed 2501 years. If the target fields are left empty, the period covered cannot exceed 130 years.</p>
+    <p>The Core number refers to the central number in the golden bubble, which also correponds to the Solar Plexus chakra. Thus, the Solar Plexus chakra is not listed separately in the chakras list, as they are one and the same.</p>
+    <p>The Destiny number corresponds to the so-called General Purpose or Spiritual Harmony number, which is the sum of the Purpose and Social numbers.</p>
+    <p>The Core and Purpose numbers are often the same but not always. The Purpose number matures over the first 40 years of life. My intuition says that people where the Core and Purpose numbers are the same, it takes them 40 years to truly discover themselves as that number, or grow into it, to develop their core number. For people where the Purpose is different from the Core number, they are born with their core number already developped, and they work for 40 years on developing the Purpose number.</p>
+    <p>The Chakra numbers are shown in the format: 👁18→20. The first number is the Energy or Spiritual Chakra, which is the one found on the vertical axis. The second number is the Physical/Manifestation of the Chakra, on the horizontal axis. The reason for the special character (👁 in this example) is that such a unique identifier allows for you to copy any combination that is of interest, for example 👁18→20 and search through the table with the built in browser search, allowing you to highlight that number across a very large table, as well as get a count of how many are present, without having to build more complicated coding solutions.</p>
+    <h3 style="color: #7bdfff; text-align: center; margin-top: 0;">How to Use the "NOT" Search</h3>
+    <p>You can exclude dates that have a specific number in any of the four main fields (Core, Purpose, Social, Destiny).</p>
+    <p>To do this, simply add a dash (a minus sign, "-") before the number you want to exclude.</p>
+    <ul style="padding-left: 20px;">
+        <li><b>Example:</b> If you want to find dates where the Core number is <em>not</em> 11, you would enter <code style="background: #111827; padding: 2px 6px; border-radius: 4px;">-11</code> into the "Core #" field.</li>
+        <li>This will show you all dates in the selected range that do not have 11 as their Core number.</li>
+    </ul>
+    <p>You can use this for any of the four fields, and you can even combine it with other searches.</p>
+</div>
 <div id="yearsTableHolder" style="display:none; margin-top: 20px;"></div>
 <!-- DEV TIP: If new buttons or changes don't appear, hold Ctrl and click Reload (Ctrl+F5) to force-refresh and bypass cache. -->
 <script>// Auto-refresh helper for dev: appends a cache-busting query string to CSS/JS imports if needed.
@@ -378,16 +395,16 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
         <input type="date" id="endDate" name="endDate" required class="screenshot-input" placeholder="mm/dd/yyyy">
         <!-- Row 3: Core Counter | Core Input -->
         <div id="epointCounter" class="screenshot-counter"></div>
-        <input type="number" id="targetEpoint" name="targetEpoint" min="1" max="22" class="screenshot-input" placeholder="Core #">
+        <input type="text" id="targetEpoint" name="targetEpoint" class="screenshot-input" placeholder="Core #">
         <!-- Row 4: Purpose Counter | Purpose Input -->
         <div id="purposeCounter" class="screenshot-counter"></div>
-        <input type="number" id="targetPurpose" name="targetPurpose" min="1" max="22" class="screenshot-input" placeholder="Purpose #">
+        <input type="text" id="targetPurpose" name="targetPurpose" class="screenshot-input" placeholder="Purpose #">
         <!-- Row 5: Social Counter | Social Input -->
         <div id="socialCounter" class="screenshot-counter"></div>
-        <input type="number" id="targetSocial" name="targetSocial" min="1" max="22" class="screenshot-input" placeholder="Social #">
+        <input type="text" id="targetSocial" name="targetSocial" class="screenshot-input" placeholder="Social #">
         <!-- Row 6: Life Purpose Counter | Life Purpose Input -->
         <div id="generalPurposeCounter" class="screenshot-counter"></div>
-        <input type="number" id="targetGeneralPurpose" name="targetGeneralPurpose" min="1" max="22" class="screenshot-input" placeholder="Destiny #">
+        <input type="text" id="targetGeneralPurpose" name="targetGeneralPurpose" class="screenshot-input" placeholder="Destiny #">
         <!-- Row 7: Overlap Counter | Run Button -->
         <div id="overlapCounter" class="screenshot-counter overlap"></div>
         <button type="submit" class="screenshot-btn">Run</button>
@@ -704,11 +721,19 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     e.preventDefault();
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
-    const targetEpoint = document.getElementById('targetEpoint').value;
-    const targetGeneralPurpose = document.getElementById('targetGeneralPurpose').value;
-    const targetPurpose = document.getElementById('targetPurpose').value;
-    const targetSocial = document.getElementById('targetSocial').value;
-    const resultsDiv = document.getElementById('results');
+    const targetEpointRaw = document.getElementById('targetEpoint').value.trim();
+        const targetGeneralPurposeRaw = document.getElementById('targetGeneralPurpose').value.trim();
+        const targetPurposeRaw = document.getElementById('targetPurpose').value.trim();
+        const targetSocialRaw = document.getElementById('targetSocial').value.trim();
+
+        const parseTarget = (raw) => ({ isNot: raw.startsWith('-'), value: Number(raw.replace('-', '')) });
+
+        const targetEpoint = parseTarget(targetEpointRaw);
+        const targetGeneralPurpose = parseTarget(targetGeneralPurposeRaw);
+        const targetPurpose = parseTarget(targetPurposeRaw);
+        const targetSocial = parseTarget(targetSocialRaw);
+
+        const resultsDiv = document.getElementById('results');
     const epointCounter = document.getElementById('epointCounter');
     const generalPurposeCounter = document.getElementById('generalPurposeCounter');
     const purposeCounter = document.getElementById('purposeCounter');
@@ -736,7 +761,7 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     }
 
     // Enforce 130-year limit if all targets are empty
-    if (!targetEpoint && !targetGeneralPurpose && !targetPurpose && !targetSocial) {
+    if (!targetEpoint.value && !targetGeneralPurpose.value && !targetPurpose.value && !targetSocial.value) {
         if (Math.abs(endYear - startYear) > 130) {
             resultsDiv.textContent = 'Error: Period covered cannot exceed 130 years when all Target inputs are empty.';
             return;
@@ -764,16 +789,18 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
         } catch (err) {
             continue;
         }
-        if (targetEpoint && Number(points.epoint) === Number(targetEpoint)) epointMatches++;
-        if (targetGeneralPurpose && Number(points.generalpurpose) === Number(targetGeneralPurpose)) generalPurposeMatches++;
-        if (targetPurpose && Number(points.purpose) === Number(targetPurpose)) purposeMatches++;
-        if (targetSocial && Number(points.social) === Number(targetSocial)) socialMatches++;
+        const check = (target, value) => !target.value || (target.isNot ? value !== target.value : value === target.value);
+
+        if (targetEpoint.value && check(targetEpoint, Number(points.epoint))) epointMatches++;
+        if (targetGeneralPurpose.value && check(targetGeneralPurpose, Number(points.generalpurpose))) generalPurposeMatches++;
+        if (targetPurpose.value && check(targetPurpose, Number(points.purpose))) purposeMatches++;
+        if (targetSocial.value && check(targetSocial, Number(points.social))) socialMatches++;
         
-        let match = true;
-        if (targetEpoint && Number(points.epoint) !== Number(targetEpoint)) match = false;
-        if (targetGeneralPurpose && Number(points.generalpurpose) !== Number(targetGeneralPurpose)) match = false;
-        if (targetPurpose && Number(points.purpose) !== Number(targetPurpose)) match = false;
-        if (targetSocial && Number(points.social) !== Number(targetSocial)) match = false;
+        let match = 
+            check(targetEpoint, Number(points.epoint)) &&
+            check(targetGeneralPurpose, Number(points.generalpurpose)) &&
+            check(targetPurpose, Number(points.purpose)) &&
+            check(targetSocial, Number(points.social));
 
         if (match) {
             // Format date as YYYY-MM-DD in local time
@@ -786,13 +813,13 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     function percent(count) {
         return totalDates > 0 ? ' (' + ((count / totalDates * 100).toFixed(2)) + '%)' : '';
     }
-    if (targetEpoint) epointCounter.textContent = epointMatches + ' found' + percent(epointMatches);
-    if (targetGeneralPurpose) generalPurposeCounter.textContent = generalPurposeMatches + ' found' + percent(generalPurposeMatches);
-    if (targetPurpose) purposeCounter.textContent = purposeMatches + ' found' + percent(purposeMatches);
-    if (targetSocial) socialCounter.textContent = socialMatches + ' found' + percent(socialMatches);
+    if (targetEpoint.value) epointCounter.textContent = epointMatches + ' found' + percent(epointMatches);
+    if (targetGeneralPurpose.value) generalPurposeCounter.textContent = generalPurposeMatches + ' found' + percent(generalPurposeMatches);
+    if (targetPurpose.value) purposeCounter.textContent = purposeMatches + ' found' + percent(purposeMatches);
+    if (targetSocial.value) socialCounter.textContent = socialMatches + ' found' + percent(socialMatches);
     
     // Only show overlap if at least one target is present and there are matches
-    if (startDate && endDate && (targetEpoint || targetGeneralPurpose || targetPurpose || targetSocial) && matches.length > 0) {
+    if (startDate && endDate && (targetEpoint.value || targetGeneralPurpose.value || targetPurpose.value || targetSocial.value) && matches.length > 0) {
         overlapCounter.textContent = matches.length + ' overlap' + percent(matches.length);
     } else {
         overlapCounter.textContent = '';
@@ -800,7 +827,7 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     // Always build an HTML table for results
     let tableRows = '';
     let resultCount = 0;
-    if (!targetEpoint && !targetGeneralPurpose && !targetPurpose && !targetSocial) {
+    if (!targetEpoint.value && !targetGeneralPurpose.value && !targetPurpose.value && !targetSocial.value) {
         // Show all dates
         for (let date of dateRange(startDate, endDate)) {
             const day = date.getDate();
@@ -816,7 +843,7 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
             const formatted = date.getFullYear().toString().padStart(4, '0') + '-' +
                 (date.getMonth() + 1).toString().padStart(2, '0') + '-' +
                 date.getDate().toString().padStart(2, '0');
-            tableRows += `<tr><td style='text-align:center;'>${formatted}</td><td style='color:#FFD700; text-align:center;'>${points.epoint}</td><td style='text-align:center;'>${points.purpose}</td><td style='text-align:center;'>${points.social}</td><td style='text-align:center;'>${points.generalpurpose}</td><td style='color:#8A2BE2; text-align:center;'>${points.bpoint}&rarr;${points.apoint}</td><td style='color:#3c1bf9; text-align:center;'>${points.ppoint}&rarr;${points.opoint}</td><td style='color:#00BFFF; text-align:center;'>${points.tpoint}&rarr;${points.spoint}</td><td style='color:#2fff7a; text-align:center;'>${points.xpoint}&rarr;${points.wpoint}</td><td style='color:#FFA500; text-align:center;'>${points.jpoint}&rarr;${points.npoint}</td><td style='color:#FF0000; text-align:center;'>${points.dpoint}&rarr;${points.cpoint}</td></tr>`;
+            tableRows += `<tr><td style='text-align:center;'>${formatted}</td><td style='color:#FFD700; text-align:center;'>${points.epoint}</td><td style='text-align:center;'>${points.purpose}</td><td style='text-align:center;'>${points.social}</td><td style='text-align:center;'>${points.generalpurpose}</td><td style='color:#8A2BE2; text-align:center;'>🜲${points.bpoint}&rarr;${points.apoint}</td><td style='color:#3c1bf9; text-align:center;'>👁${points.ppoint}&rarr;${points.opoint}</td><td style='color:#00BFFF; text-align:center;'>🗣${points.tpoint}&rarr;${points.spoint}</td><td style='color:#2fff7a; text-align:center;'>♡${points.xpoint}&rarr;${points.wpoint}</td><td style='color:#FFA500; text-align:center;'>🪷${points.jpoint}&rarr;${points.npoint}</td><td style='color:#FF0000; text-align:center;'>√${points.dpoint}&rarr;${points.cpoint}</td></tr>`;
             resultCount++;
         }
     } else {
@@ -913,6 +940,15 @@ td[data-year-ends-with-9="true"] {
 </style>
 
 <script>
+document.getElementById('showInstructionsBtn').addEventListener('click', function() {
+    const holder = document.getElementById('instructionsHolder');
+    if (holder.style.display === 'none') {
+        holder.style.display = 'block';
+    } else {
+        holder.style.display = 'none';
+    }
+});
+
 document.getElementById('showYearsTableBtn').addEventListener('click', function() {
     const holder = document.getElementById('yearsTableHolder');
     const button = this;
