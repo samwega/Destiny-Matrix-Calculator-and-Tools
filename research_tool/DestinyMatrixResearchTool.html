@@ -379,10 +379,16 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
         <!-- Row 3: Core Counter | Core Input -->
         <div id="epointCounter" class="screenshot-counter"></div>
         <input type="number" id="targetEpoint" name="targetEpoint" min="1" max="22" class="screenshot-input" placeholder="Core #">
-        <!-- Row 4: Life Purpose Counter | Life Purpose Input -->
+        <!-- Row 4: Purpose Counter | Purpose Input -->
+        <div id="purposeCounter" class="screenshot-counter"></div>
+        <input type="number" id="targetPurpose" name="targetPurpose" min="1" max="22" class="screenshot-input" placeholder="Purpose #">
+        <!-- Row 5: Social Counter | Social Input -->
+        <div id="socialCounter" class="screenshot-counter"></div>
+        <input type="number" id="targetSocial" name="targetSocial" min="1" max="22" class="screenshot-input" placeholder="Social #">
+        <!-- Row 6: Life Purpose Counter | Life Purpose Input -->
         <div id="generalPurposeCounter" class="screenshot-counter"></div>
-        <input type="number" id="targetGeneralPurpose" name="targetGeneralPurpose" min="1" max="22" class="screenshot-input" placeholder="Life Purpose">
-        <!-- Row 5: Overlap Counter | Run Button -->
+        <input type="number" id="targetGeneralPurpose" name="targetGeneralPurpose" min="1" max="22" class="screenshot-input" placeholder="Destiny #">
+        <!-- Row 7: Overlap Counter | Run Button -->
         <div id="overlapCounter" class="screenshot-counter overlap"></div>
         <button type="submit" class="screenshot-btn">Run</button>
     </div>
@@ -716,39 +722,74 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
         }
         // --- Main Calculation Function ---
         function calculateMatrix(day, month, year) {
-            const points = {};
-            if (!day || !month || !year || isNaN(day) || isNaN(month) || isNaN(year) || year < 1 || day < 1 || day > 31 || month < 1 || month > 12) { throw new Error("Invalid or incomplete date input."); }
-            day = Number(day); month = Number(month); year = Number(year);
-            const yearSum = sumDigits(year); points.apoint = reduceTo22(day); points.bpoint = reduceTo22(month);
-            points.cpoint = reduceTo22(yearSum); points.dpoint = reduceTo22(points.apoint + points.bpoint + points.cpoint);
-            points.epoint = reduceTo22(points.apoint + points.bpoint + points.cpoint + points.dpoint);
-            points.fpoint = reduceTo22(points.apoint + points.bpoint); points.gpoint = reduceTo22(points.bpoint + points.cpoint);
-            points.hpoint = reduceTo22(points.apoint + points.dpoint); points.ipoint = reduceTo22(points.cpoint + points.dpoint);
-            points.jpoint = reduceTo22(points.dpoint + points.epoint); points.npoint = reduceTo22(points.cpoint + points.epoint);
-            points.spoint = reduceTo22(points.epoint + points.apoint); points.tpoint = reduceTo22(points.bpoint + points.epoint);
-            points.lpoint = reduceTo22(points.jpoint + points.npoint); points.kpoint = reduceTo22(points.jpoint + points.lpoint);
-            points.mpoint = reduceTo22(points.lpoint + points.npoint); points.opoint = reduceTo22(points.apoint + points.spoint);
-            points.ppoint = reduceTo22(points.bpoint + points.tpoint); points.qpoint = reduceTo22(points.cpoint + points.npoint);
-            points.rpoint = reduceTo22(points.dpoint + points.jpoint);
-            points.upoint = reduceTo22(points.fpoint + points.gpoint + points.ipoint + points.hpoint);
-            points.vpoint = reduceTo22(points.epoint + points.upoint); points.wpoint = reduceTo22(points.epoint + points.spoint);
-            points.xpoint = reduceTo22(points.epoint + points.tpoint); points.f2point = reduceTo22(points.upoint + points.fpoint);
-            points.f1point = reduceTo22(points.fpoint + points.f2point); points.g2point = reduceTo22(points.upoint + points.gpoint);
-            points.g1point = reduceTo22(points.gpoint + points.g2point); points.h2point = reduceTo22(points.upoint + points.hpoint);
-            points.h1point = reduceTo22(points.hpoint + points.h2point); points.i2point = reduceTo22(points.upoint + points.ipoint);
-            points.i1point = reduceTo22(points.ipoint + points.i2point);
-            calculateSidePoints(points.apoint, points.fpoint, 'af', points); calculateSidePoints(points.fpoint, points.bpoint, 'fb', points);
-            calculateSidePoints(points.bpoint, points.gpoint, 'bg', points); calculateSidePoints(points.gpoint, points.cpoint, 'gc', points);
-            calculateSidePoints(points.cpoint, points.ipoint, 'ci', points); calculateSidePoints(points.ipoint, points.dpoint, 'id', points);
-            calculateSidePoints(points.dpoint, points.hpoint, 'dh', points); calculateSidePoints(points.hpoint, points.apoint, 'ha', points);
-            points.sky = reduceTo22(points.bpoint + points.dpoint); points.earth = reduceTo22(points.apoint + points.cpoint);
-            points.male = reduceTo22(points.fpoint + points.ipoint);
-            points.female = reduceTo22(points.gpoint + points.hpoint);
-            points.purpose = reduceTo22(points.sky + points.earth);
-            points.social = reduceTo22(points.male + points.female);
-            points.generalpurpose = reduceTo22(points.purpose + points.social);
-            return points;
-        }
+                const points = {};
+                if (!day || !month || !year || isNaN(day) || isNaN(month) || isNaN(year) || year < 1 || day < 1 || day > 31 || month < 1 || month > 12) { throw new Error("Invalid or incomplete date input."); }
+                day = Number(day); month = Number(month); year = Number(year);
+                const yearSum = sumDigits(year); points.apoint = reduceTo22(day); points.bpoint = reduceTo22(month);
+                points.cpoint = reduceTo22(yearSum); points.dpoint = reduceTo22(points.apoint + points.bpoint + points.cpoint);
+                points.epoint = reduceTo22(points.apoint + points.bpoint + points.cpoint + points.dpoint);
+                points.fpoint = reduceTo22(points.apoint + points.bpoint); points.gpoint = reduceTo22(points.bpoint + points.cpoint);
+                points.hpoint = reduceTo22(points.apoint + points.dpoint); points.ipoint = reduceTo22(points.cpoint + points.dpoint);
+                points.jpoint = reduceTo22(points.dpoint + points.epoint); points.npoint = reduceTo22(points.cpoint + points.epoint);
+                points.spoint = reduceTo22(points.epoint + points.apoint); points.tpoint = reduceTo22(points.bpoint + points.epoint);
+                points.lpoint = reduceTo22(points.jpoint + points.npoint); points.kpoint = reduceTo22(points.jpoint + points.lpoint);
+                points.mpoint = reduceTo22(points.lpoint + points.npoint); points.opoint = reduceTo22(points.apoint + points.spoint);
+                points.ppoint = reduceTo22(points.bpoint + points.tpoint); points.qpoint = reduceTo22(points.cpoint + points.npoint);
+                points.rpoint = reduceTo22(points.dpoint + points.jpoint);
+                points.upoint = reduceTo22(points.fpoint + points.gpoint + points.ipoint + points.hpoint);
+                points.vpoint = reduceTo22(points.epoint + points.upoint); points.wpoint = reduceTo22(points.epoint + points.spoint);
+                points.xpoint = reduceTo22(points.epoint + points.tpoint); points.f2point = reduceTo22(points.upoint + points.fpoint);
+                points.f1point = reduceTo22(points.fpoint + points.f2point); points.g2point = reduceTo22(points.upoint + points.gpoint);
+                points.g1point = reduceTo22(points.gpoint + points.g2point); points.h2point = reduceTo22(points.upoint + points.hpoint);
+                points.h1point = reduceTo22(points.hpoint + points.h2point); points.i2point = reduceTo22(points.upoint + points.ipoint);
+                points.i1point = reduceTo22(points.ipoint + points.i2point);
+                calculateSidePoints(points.apoint, points.fpoint, 'af', points); calculateSidePoints(points.fpoint, points.bpoint, 'fb', points);
+                calculateSidePoints(points.bpoint, points.gpoint, 'bg', points); calculateSidePoints(points.gpoint, points.cpoint, 'gc', points);
+                calculateSidePoints(points.cpoint, points.ipoint, 'ci', points); calculateSidePoints(points.ipoint, points.dpoint, 'id', points);
+                calculateSidePoints(points.dpoint, points.hpoint, 'dh', points); calculateSidePoints(points.hpoint, points.apoint, 'ha', points);
+                points.sky = reduceTo22(points.bpoint + points.dpoint); points.earth = reduceTo22(points.apoint + points.cpoint);
+                points.male = reduceTo22(points.fpoint + points.ipoint); points.female = reduceTo22(points.gpoint + points.hpoint);
+                points.purpose = reduceTo22(points.sky + points.earth); points.social = reduceTo22(points.male + points.female);
+                points.generalpurpose = reduceTo22(points.purpose + points.social);
+
+                // --- Chakras Calculations ---
+                // Crown: Physics = apoint, Energy = bpoint
+                points.crownPhysics = points.apoint;
+                points.crownEnergy = points.bpoint;
+                points.crownEmotions = reduceTo22(points.crownPhysics + points.crownEnergy);
+
+                // Third Eye: Physics = opoint, Energy = ppoint
+                points.thirdeyePhysics = points.opoint;
+                points.thirdeyeEnergy = points.ppoint;
+                points.thirdeyeEmotions = reduceTo22(points.thirdeyePhysics + points.thirdeyeEnergy);
+
+                // Throat: Physics = spoint, Energy = tpoint
+                points.throatPhysics = points.spoint;
+                points.throatEnergy = points.tpoint;
+                points.throatEmotions = reduceTo22(points.throatPhysics + points.throatEnergy);
+
+                // Heart: Physics = wpoint, Energy = xpoint
+                points.heartPhysics = points.wpoint;
+                points.heartEnergy = points.xpoint;
+                points.heartEmotions = reduceTo22(points.heartPhysics + points.heartEnergy);
+
+                // Solar Plexus: Both Physics and Energy = epoint
+                points.solarplexusPhysics = points.epoint;
+                points.solarplexusEnergy = points.epoint;
+                points.solarplexusEmotions = reduceTo22(points.solarplexusPhysics + points.solarplexusEnergy);
+
+                // Sacral: Physics = npoint, Energy = jpoint
+                points.sacralPhysics = points.npoint;
+                points.sacralEnergy = points.jpoint;
+                points.sacralEmotions = reduceTo22(points.sacralPhysics + points.sacralEnergy);
+
+                // Root: Physics = cpoint, Energy = dpoint
+                points.rootPhysics = points.cpoint;
+                points.rootEnergy = points.dpoint;
+                points.rootEmotions = reduceTo22(points.rootPhysics + points.rootEnergy);
+
+                return points;
+            }
         // --- Date Range Helper ---
         // Helper to parse 'YYYY-MM-DD' as local date
         function parseLocalDate(dateString) {
@@ -771,14 +812,20 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     const endDate = document.getElementById('endDate').value;
     const targetEpoint = document.getElementById('targetEpoint').value;
     const targetGeneralPurpose = document.getElementById('targetGeneralPurpose').value;
+    const targetPurpose = document.getElementById('targetPurpose').value;
+    const targetSocial = document.getElementById('targetSocial').value;
     const resultsDiv = document.getElementById('results');
     const epointCounter = document.getElementById('epointCounter');
     const generalPurposeCounter = document.getElementById('generalPurposeCounter');
+    const purposeCounter = document.getElementById('purposeCounter');
+    const socialCounter = document.getElementById('socialCounter');
     const overlapCounter = document.getElementById('overlapCounter');
     const totalDaysCounter = document.getElementById('totalDaysCounter');
     resultsDiv.textContent = '';
     epointCounter.textContent = '';
     generalPurposeCounter.textContent = '';
+    purposeCounter.textContent = '';
+    socialCounter.textContent = '';
     overlapCounter.textContent = '';
     totalDaysCounter.textContent = '';
     if (!startDate || !endDate) {
@@ -794,10 +841,10 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
         return;
     }
 
-    // Enforce 130-year limit if both targets are empty
-    if (!targetEpoint && !targetGeneralPurpose) {
+    // Enforce 130-year limit if all targets are empty
+    if (!targetEpoint && !targetGeneralPurpose && !targetPurpose && !targetSocial) {
         if (Math.abs(endYear - startYear) > 130) {
-            resultsDiv.textContent = 'Error: Period covered cannot exceed 130 years when both Target inputs are empty.';
+            resultsDiv.textContent = 'Error: Period covered cannot exceed 130 years when all Target inputs are empty.';
             return;
         }
     }
@@ -811,6 +858,8 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     let matches = [];
     let epointMatches = 0;
     let generalPurposeMatches = 0;
+    let purposeMatches = 0;
+    let socialMatches = 0;
     for (let date of dateRange(startDate, endDate)) {
         const day = date.getDate();
         const month = date.getMonth() + 1;
@@ -823,15 +872,21 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
         }
         if (targetEpoint && Number(points.epoint) === Number(targetEpoint)) epointMatches++;
         if (targetGeneralPurpose && Number(points.generalpurpose) === Number(targetGeneralPurpose)) generalPurposeMatches++;
+        if (targetPurpose && Number(points.purpose) === Number(targetPurpose)) purposeMatches++;
+        if (targetSocial && Number(points.social) === Number(targetSocial)) socialMatches++;
+        
         let match = true;
         if (targetEpoint && Number(points.epoint) !== Number(targetEpoint)) match = false;
         if (targetGeneralPurpose && Number(points.generalpurpose) !== Number(targetGeneralPurpose)) match = false;
+        if (targetPurpose && Number(points.purpose) !== Number(targetPurpose)) match = false;
+        if (targetSocial && Number(points.social) !== Number(targetSocial)) match = false;
+
         if (match) {
             // Format date as YYYY-MM-DD in local time
             const formatted = date.getFullYear().toString().padStart(4, '0') + '-' +
                 (date.getMonth() + 1).toString().padStart(2, '0') + '-' +
                 date.getDate().toString().padStart(2, '0');
-            matches.push(`${formatted} - Core ${points.epoint}; Life Purpose ${points.generalpurpose}; Sacral ${points.jpoint}`);
+            matches.push(`${formatted} - Core ${points.epoint}; Purpose ${points.purpose}; Social ${points.social}; Destiny ${points.generalpurpose}; Sacral ${points.jpoint}`);
         }
     }
     function percent(count) {
@@ -839,8 +894,11 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     }
     if (targetEpoint) epointCounter.textContent = epointMatches + ' found' + percent(epointMatches);
     if (targetGeneralPurpose) generalPurposeCounter.textContent = generalPurposeMatches + ' found' + percent(generalPurposeMatches);
-    // Only show overlap if all inputs are present
-    if (startDate && endDate && targetEpoint && targetGeneralPurpose && matches.length > 0) {
+    if (targetPurpose) purposeCounter.textContent = purposeMatches + ' found' + percent(purposeMatches);
+    if (targetSocial) socialCounter.textContent = socialMatches + ' found' + percent(socialMatches);
+    
+    // Only show overlap if at least one target is present and there are matches
+    if (startDate && endDate && (targetEpoint || targetGeneralPurpose || targetPurpose || targetSocial) && matches.length > 0) {
         overlapCounter.textContent = matches.length + ' overlap' + percent(matches.length);
     } else {
         overlapCounter.textContent = '';
@@ -848,7 +906,7 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     // Always build an HTML table for results
     let tableRows = '';
     let resultCount = 0;
-    if (!targetEpoint && !targetGeneralPurpose) {
+    if (!targetEpoint && !targetGeneralPurpose && !targetPurpose && !targetSocial) {
         // Show all dates
         for (let date of dateRange(startDate, endDate)) {
             const day = date.getDate();
@@ -864,30 +922,28 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
             const formatted = date.getFullYear().toString().padStart(4, '0') + '-' +
                 (date.getMonth() + 1).toString().padStart(2, '0') + '-' +
                 date.getDate().toString().padStart(2, '0');
-            tableRows += `<tr><td>${formatted}</td><td style='color:#33f2df;'>${points.epoint}</td><td>${points.generalpurpose}</td><td style='color:#ff9800;'>${points.jpoint}</td><td style='color:#2fff7a; text-align:center;'>${points.xpoint}&rarr;${points.wpoint}</td></tr>`;
+            tableRows += `<tr><td>${formatted}</td><td style='color:#33f2df;'>${points.epoint}</td><td>${points.purpose}</td><td>${points.social}</td><td>${points.generalpurpose}</td><td style='color:#ff9800; text-align:center;'>${points.bpoint}&rarr;${points.apoint}</td><td style='color:#ff9800; text-align:center;'>${points.ppoint}&rarr;${points.opoint}</td><td style='color:#ff9800; text-align:center;'>${points.tpoint}&rarr;${points.spoint}</td><td style='color:#2fff7a; text-align:center;'>${points.xpoint}&rarr;${points.wpoint}</td><td style='color:#ff9800; text-align:center;'>${points.jpoint}&rarr;${points.npoint}</td><td style='color:#ff9800; text-align:center;'>${points.dpoint}&rarr;${points.cpoint}</td></tr>`;
             resultCount++;
         }
     } else {
         // Only show filtered matches
         for (let match of matches) {
-            // match is a string like: 'YYYY-MM-DD - Core X; Life Purpose Y; Sacral Z'
-            // We'll parse it back to columns for consistency
-            const m = match.match(/^(\d{4}-\d{2}-\d{2}) - Core (\d+); Life Purpose (\d+); Sacral (\d+)/);
+            const m = match.match(/^(\d{4}-\d{2}-\d{2}) - Core (\d+); Purpose (\d+); Social (\d+); Destiny (\d+); Sacral (\d+)/);
             if (m) {
-                const [, date, core, lifePurpose, sacral] = m;
-                // For filtered matches, recalculate xpoint and wpoint for the row
+                const [, date, core, purpose, social, destiny, sacral] = m;
+                // For filtered matches, recalculate all points for the row
                 const [year, month, day] = date.split('-').map(Number);
                 let points;
                 try {
                     points = calculateMatrix(day, month, year);
                 } catch (err) {
-                    points = { xpoint: '', wpoint: '' };
+                    points = { bpoint: '', apoint: '', ppoint: '', opoint: '', tpoint: '', spoint: '', xpoint: '', wpoint: '', jpoint: '', npoint: '', dpoint: '', cpoint: '' };
                 }
-                tableRows += `<tr><td>${date}</td><td style='color:#ffc46b;'>${core}</td><td>${lifePurpose}</td><td style='color:#ff9800;'>${sacral}</td><td style='color:#2fff7a; text-align:center;'>${points.xpoint}&rarr;${points.wpoint}</td></tr>`;
+                tableRows += `<tr><td>${date}</td><td style='color:#ffc46b;'>${core}</td><td>${purpose}</td><td>${social}</td><td>${destiny}</td><td style='color:#ff9800; text-align:center;'>${points.bpoint}&rarr;${points.apoint}</td><td style='color:#ff9800; text-align:center;'>${points.ppoint}&rarr;${points.opoint}</td><td style='color:#ff9800; text-align:center;'>${points.tpoint}&rarr;${points.spoint}</td><td style='color:#2fff7a; text-align:center;'>${points.xpoint}&rarr;${points.wpoint}</td><td style='color:#ff9800; text-align:center;'>${points.jpoint}&rarr;${points.npoint}</td><td style='color:#ff9800; text-align:center;'>${points.dpoint}&rarr;${points.cpoint}</td></tr>`;
                 resultCount++;
             } else {
                 // fallback: show as a single row
-                tableRows += `<tr><td colspan="6">${match}</td></tr>`;
+                tableRows += `<tr><td colspan="11">${match}</td></tr>`;
                 resultCount++;
             }
         }
@@ -896,9 +952,15 @@ if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
         resultsDiv.innerHTML = `<div style="overflow-x:auto"><table style="border-collapse:collapse;background:transparent;border:1.5px solid #38405a;"><thead><tr>
             <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Date</th>
             <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Core</th>
+            <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Purpose</th>
+            <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Social</th>
             <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Destiny</th>
-            <th style='text-align:left; padding:3px 6px; font-weight:normal; border:1px solid #38405a;'>Sacral</th>
-            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1.5px solid #38405a;'>Heart &amp; Desire</th>
+            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1.5px solid #38405a;'>Crown</th>
+            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1.5px solid #38405a;'>Ajna</th>
+            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1.5px solid #38405a;'>Throat</th>
+            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1.5px solid #38405a;'>Heart</th>
+            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1.5px solid #38405a;'>Sacral</th>
+            <th style='text-align:center; padding:3px 6px; font-weight:normal; border:1.5px solid #38405a;'>Root</th>
         </tr></thead><tbody>${tableRows}</tbody></table></div>`;
 
     } else {
